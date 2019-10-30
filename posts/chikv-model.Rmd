@@ -1,0 +1,108 @@
+---
+title: CHIKV Model
+author: Pragati Prasad
+date: '2019-10-28'
+slug: chikv-model
+categories: []
+tags: []
+---
+
+Based on this:
+Yakob L, Clements AC. A mathematical model of chikungunya dynamics and control: the major epidemic on Réunion Island. PLoS One. 2013;8(3):e57448. doi:10.1371/journal.pone.0057448
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3590184/
+
+
+```{r}
+suppressMessages(library(EpiModel))
+```
+
+```{r}
+
+chikv <-function(t, t0, parms) {
+  with(as.list(c(t0, parms)), {
+    
+    num <- s.num + e.num + i.num + ia.num + r.num 
+    num.m <- x.num + y.num + z.num
+
+    dS <- -1*beta1*(s.num)*(z.num / num.m)
+    dE <- (beta1*(s.num)*(z.num / num.m)) - (lambda1*(e.num))
+    dI <- (theta*lambda1*(e.num)) - (gamma*(i.num))
+    dIa <- ((1 - theta)*lambda1*(e.num)) - (gamma*(ia.num))
+    dR <- gamma*((i.num + ia.num))
+    
+    dX <- (mu*x.num) - (beta2*(x.num)*((i.num+ia.num) / num)) - (mu*(x.num))
+    dY <- (beta2*(x.num)*((i.num+ia.num) / num)) - (lambda2*(y.num)) - (mu*(y.num))
+    dZ <- (lambda2*(y.num)) - (mu*(z.num))
+
+    list(c(dS,
+           dE,
+           dI,
+           dIa,
+           dR,
+           dX,
+           dY,
+           dZ,
+           se.flow <- (beta1*s.num*(z.num / num.m)),
+           ei.flow <- (lambda1*e.num),
+           ir.flow<- gamma*(i.num + ia.num),
+           xy.flow <- (beta2*x.num*((i.num + ia.num) / num)),
+           yz.flow <- (lambda2*y.num)
+    ))
+  })
+}
+
+```
+
+Population = 787,836 - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2528011/
+
+Mosquito population = 9 million? - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6069545/
+Brazil has 10-250 million mosquitos, but I use 9 million for Reunion Island
+
+```{r}
+param <-param.dcm(beta1 = 0.14,
+                  beta2 = 0.4,
+                  theta = 0.97,
+                  lambda1 = 0.5,
+                  lambda2 = 0.5,
+                  gamma = 0.25,
+                  mu = 0.05)
+                  #omega = 0.25)
+init <-init.dcm(s.num = 787836,
+                e.num = 0,
+                i.num = 0,
+                ia.num = 0,
+                r.num = 0,
+                x.num = 3000000,
+                y.num = 3000000,
+                z.num = 3000000,
+                se.flow = 0,
+                ei.flow = 0,
+                ir.flow = 0,
+                xy.flow = 0,
+                yz.flow = 0)
+control <-control.dcm(nsteps =2*365, new.mod = chikv) 
+
+sim <- dcm(param, init, control)
+
+sim <- mutate_epi(sim, num = s.num + e.num + i.num + ia.num + r.num)
+sim <- mutate_epi(sim, 
+                  symp.prev = i.num / num,
+                  se.prop = se.flow / num,
+                  ei.prop = ei.flow / num,
+                  ir.prop = ir.flow / num
+)
+
+plot(sim,y=c("s.num", "i.num", "e.num", "r.num"),legend="full")
+plot(sim,y=c("i.num"),legend="full")
+plot(sim,y=c("symp.prev"),legend="full")
+
+plot(sim,y=c("se.flow", "ei.flow", "ir.flow"),legend="full")
+plot(sim,y=c("se.prop", "ei.prop", "ir.prop"),legend="full",ylim=c(0, 0.08))
+
+df<-as.data.frame(sim)
+max(df$se.prop) 
+
+plot(sim,y=c("x.num", "y.num", "z.num"),legend="full")
+plot(sim,y=c("xy.flow", "yz.flow"),legend="full")
+```

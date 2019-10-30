@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Pragati Prasad">
+    <meta name="description" content="Pragati&#39;s Personal Site">
+    <meta name="keywords" content="blog,developer,personal,epidemiolgist,bistatistician,infectious,disease,epidemiology">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CHIKV Model"/>
+<meta name="twitter:description" content="library(EpiModel) ## Loading required package: deSolve ## Loading required package: networkDynamic ## Loading required package: network ## network: Classes for Relational Data ## Version 1.14-376 created on 2019-02-24. ## copyright (c) 2005, Carter T. Butts, University of California-Irvine ## Mark S. Handcock, University of California -- Los Angeles ## David R. Hunter, Penn State University ## Martina Morris, University of Washington ## Skye Bender-deMoll, University of Washington ## For citation information, type citation(&quot;network&quot;)."/>
+
+    <meta property="og:title" content="CHIKV Model" />
+<meta property="og:description" content="library(EpiModel) ## Loading required package: deSolve ## Loading required package: networkDynamic ## Loading required package: network ## network: Classes for Relational Data ## Version 1.14-376 created on 2019-02-24. ## copyright (c) 2005, Carter T. Butts, University of California-Irvine ## Mark S. Handcock, University of California -- Los Angeles ## David R. Hunter, Penn State University ## Martina Morris, University of Washington ## Skye Bender-deMoll, University of Washington ## For citation information, type citation(&quot;network&quot;)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/post-title/" />
+<meta property="article:published_time" content="2019-10-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-10-28T00:00:00+00:00" />
+
+
+    
+      <base href="/post/post-title/">
+    
+    <title>
+  CHIKV Model · Pragati Prasad
+</title>
+
+    
+      <link rel="canonical" href="/post/post-title/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css" integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz&#43;DRsBr08iQK1YWABpw=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+      <link rel="stylesheet" href="/css/custom.css" />
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.59.0" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Pragati Prasad
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="/about/">About</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="/posts/">Posts</a>
+          </li>
+        
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container page">
+  <article>
+    <header>
+      <h1>CHIKV Model</h1>
+    </header>
+
+    
+
+
+<pre class="r"><code>library(EpiModel)</code></pre>
+<pre><code>## Loading required package: deSolve</code></pre>
+<pre><code>## Loading required package: networkDynamic</code></pre>
+<pre><code>## Loading required package: network</code></pre>
+<pre><code>## network: Classes for Relational Data
+## Version 1.14-376 created on 2019-02-24.
+## copyright (c) 2005, Carter T. Butts, University of California-Irvine
+##                     Mark S. Handcock, University of California -- Los Angeles
+##                     David R. Hunter, Penn State University
+##                     Martina Morris, University of Washington
+##                     Skye Bender-deMoll, University of Washington
+##  For citation information, type citation(&quot;network&quot;).
+##  Type help(&quot;network-package&quot;) to get started.</code></pre>
+<pre><code>## 
+## networkDynamic: version 0.9.0, created on 2016-01-12
+## Copyright (c) 2016, Carter T. Butts, University of California -- Irvine
+##                     Ayn Leslie-Cook, University of Washington
+##                     Pavel N. Krivitsky, University of Wollongong
+##                     Skye Bender-deMoll, University of Washington
+##                     with contributions from
+##                     Zack Almquist, University of California -- Irvine
+##                     David R. Hunter, Penn State University
+##                     Li Wang
+##                     Kirk Li, University of Washington
+##                     Steven M. Goodreau, University of Washington
+##                     Jeffrey Horner
+##                     Martina Morris, University of Washington
+## Based on &quot;statnet&quot; project software (statnet.org).
+## For license and citation information see statnet.org/attribution
+## or type citation(&quot;networkDynamic&quot;).</code></pre>
+<pre><code>## Loading required package: tergm</code></pre>
+<pre><code>## Loading required package: ergm</code></pre>
+<pre><code>## 
+## ergm: version 3.10.0-4772, created on 2019-02-26
+## Copyright (c) 2019, Mark S. Handcock, University of California -- Los Angeles
+##                     David R. Hunter, Penn State University
+##                     Carter T. Butts, University of California -- Irvine
+##                     Steven M. Goodreau, University of Washington
+##                     Pavel N. Krivitsky, University of Wollongong
+##                     Martina Morris, University of Washington
+##                     with contributions from
+##                     Li Wang
+##                     Kirk Li, University of Washington
+##                     Skye Bender-deMoll, University of Washington
+## Based on &quot;statnet&quot; project software (statnet.org).
+## For license and citation information see statnet.org/attribution
+## or type citation(&quot;ergm&quot;).</code></pre>
+<pre><code>## NOTE: Versions before 3.6.1 had a bug in the implementation of the
+## bd() constriant which distorted the sampled distribution somewhat.
+## In addition, Sampson&#39;s Monks datasets had mislabeled vertices. See
+## the NEWS and the documentation for more details.</code></pre>
+<pre><code>## 
+## tergm: version 3.6.0-1659, created on 2018-11-23
+## Copyright (c) 2018, Pavel N. Krivitsky, University of Wollongong
+##                     Mark S. Handcock, University of California -- Los Angeles
+##                     with contributions from
+##                     David R. Hunter, Penn State University
+##                     Steven M. Goodreau, University of Washington
+##                     Martina Morris, University of Washington
+##                     Nicole Bohme Carnegie, New York University
+##                     Carter T. Butts, University of California -- Irvine
+##                     Ayn Leslie-Cook, University of Washington
+##                     Skye Bender-deMoll
+##                     Li Wang
+##                     Kirk Li, University of Washington
+## Based on &quot;statnet&quot; project software (statnet.org).
+## For license and citation information see statnet.org/attribution
+## or type citation(&quot;tergm&quot;).</code></pre>
+<pre class="r"><code>chikv &lt;-function(t, t0, parms) {
+  with(as.list(c(t0, parms)), {
+    
+    num &lt;- s.num + e.num + i.num + ia.num + r.num 
+    num.m &lt;- x.num + y.num + z.num
+
+    
+    # 3. Write four differential equations
+    dS &lt;- -1*beta1*(s.num)*(z.num / num.m)
+    dE &lt;- (beta1*(s.num)*(z.num / num.m)) - (lambda1*(e.num))
+    dI &lt;- (theta*lambda1*(e.num)) - (gamma*(i.num))
+    dIa &lt;- ((1 - theta)*lambda1*(e.num)) - (gamma*(ia.num))
+    dR &lt;- gamma*((i.num + ia.num))
+    
+    dX &lt;- (mu*x.num) - (beta2*(x.num)*((i.num+ia.num) / num)) - (mu*(x.num))
+    dY &lt;- (beta2*(x.num)*((i.num+ia.num) / num)) + (lambda2*(y.num)) - (mu*(y.num))
+    dZ &lt;- (lambda2*(y.num)) - (mu*(z.num))
+
+    # 4. Outputs
+    list(c(dS,
+           dE,
+           dI,
+           dIa,
+           dR,
+           dX,
+           dY,
+           dZ,
+           se.flow &lt;- (beta1*s.num*(z.num / num.m)),
+           ei.flow &lt;- (lambda1*e.num),
+           ir.flow&lt;- gamma*(i.num + ia.num),
+           xy.flow &lt;- (beta2*x.num*((i.num + ia.num) / num)),
+           yz.flow &lt;- (lambda2*y.num)
+    ))
+  })
+}
+
+
+## Population = 787,836 - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2528011/
+
+## Mosquito population = 10 million? - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6069545/
+
+param &lt;-param.dcm(beta1 = 0.14,
+                  beta2 = 0.4,
+                  theta = 0.97,
+                  lambda1 = 0.5,
+                  lambda2 = 0.5,
+                  gamma = 0.25,
+                  mu = 0.05)
+                  #omega = 0.25)
+init &lt;-init.dcm(s.num = 787836,
+                e.num = 0,
+                i.num = 0,
+                ia.num = 0,
+                r.num = 0,
+                x.num = 3000000,
+                y.num = 3000000,
+                z.num = 3000000,
+                se.flow = 0,
+                ei.flow = 0,
+                ir.flow = 0,
+                xy.flow = 0,
+                yz.flow = 0)
+control &lt;-control.dcm(nsteps =2*365, new.mod = chikv) 
+
+sim &lt;- dcm(param, init, control)
+
+sim &lt;- mutate_epi(sim, num = s.num + e.num + i.num + ia.num + r.num)
+sim &lt;- mutate_epi(sim, 
+                  symp.prev = i.num / num,
+                  se.prop = se.flow / num,
+                  ei.prop = ei.flow / num,
+                  ir.prop = ir.flow / num
+)
+
+plot(sim,y=c(&quot;s.num&quot;, &quot;i.num&quot;, &quot;e.num&quot;, &quot;r.num&quot;),legend=&quot;full&quot;)</code></pre>
+<p><img src="/post/2019-10-28-post-title_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;i.num&quot;),legend=&quot;full&quot;)</code></pre>
+<p><img src="/post/2019-10-28-post-title_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;symp.prev&quot;),legend=&quot;full&quot;)</code></pre>
+<p><img src="/post/2019-10-28-post-title_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;se.flow&quot;, &quot;ei.flow&quot;, &quot;ir.flow&quot;),legend=&quot;full&quot;)</code></pre>
+<p><img src="/post/2019-10-28-post-title_files/figure-html/unnamed-chunk-1-4.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;se.prop&quot;, &quot;ei.prop&quot;, &quot;ir.prop&quot;),legend=&quot;full&quot;,ylim=c(0, 0.08))</code></pre>
+<p><img src="/post/2019-10-28-post-title_files/figure-html/unnamed-chunk-1-5.png" width="672" /></p>
+<pre class="r"><code>df&lt;-as.data.frame(sim)
+max(df$se.prop) #0.05255324 - 5.3% is exactly what the bank has</code></pre>
+<pre><code>## [1] 0.05255324</code></pre>
+
+  </article>
+</section>
+
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+     © 2019
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>
