@@ -8,6 +8,7 @@ tags: []
 ---
 
 Based on this:
+
 Yakob L, Clements AC. A mathematical model of chikungunya dynamics and control: the major epidemic on Réunion Island. PLoS One. 2013;8(3):e57448. doi:10.1371/journal.pone.0057448
 
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3590184/
@@ -73,15 +74,15 @@ init <-init.dcm(s.num = 787836,
                 i.num = 0,
                 ia.num = 0,
                 r.num = 0,
-                x.num = 3000000,
-                y.num = 3000000,
-                z.num = 3000000,
+                x.num = 3300000,
+                y.num = 3300000,
+                z.num = 3300000,
                 se.flow = 0,
                 ei.flow = 0,
                 ir.flow = 0,
                 xy.flow = 0,
                 yz.flow = 0)
-control <-control.dcm(nsteps =2*365, new.mod = chikv) 
+control <-control.dcm(nsteps =365, new.mod = chikv) 
 
 sim <- dcm(param, init, control)
 
@@ -99,10 +100,118 @@ plot(sim,y=c("symp.prev"),legend="full")
 
 plot(sim,y=c("se.flow", "ei.flow", "ir.flow"),legend="full")
 plot(sim,y=c("se.prop", "ei.prop", "ir.prop"),legend="full",ylim=c(0, 0.08))
+```
 
+```{r, echo=FALSE}
 df<-as.data.frame(sim)
+print("Peak Incidence")
 max(df$se.prop) 
 
+print("Peak Prevalence")
+max(df$symp.prev) 
+```
+Peak Incidence here is not consistent with the paper's findings (5.3%).
+But we've only done a deterministic analysis here with static parameters.
+
+```{r}
 plot(sim,y=c("x.num", "y.num", "z.num"),legend="full")
 plot(sim,y=c("xy.flow", "yz.flow"),legend="full")
 ```
+
+
+However, it doesn't make sense to me that only uninfected mosquitos (in the X compartment) 
+would be breeding. Wouldn't mosquitos in all compartments procreate?
+
+I change this below
+
+```{r}
+
+chikv <-function(t, t0, parms) {
+  with(as.list(c(t0, parms)), {
+    
+    num <- s.num + e.num + i.num + ia.num + r.num 
+    num.m <- x.num + y.num + z.num
+
+    dS <- -1*beta1*(s.num)*(z.num / num.m)
+    dE <- (beta1*(s.num)*(z.num / num.m)) - (lambda1*(e.num))
+    dI <- (theta*lambda1*(e.num)) - (gamma*(i.num))
+    dIa <- ((1 - theta)*lambda1*(e.num)) - (gamma*(ia.num))
+    dR <- gamma*((i.num + ia.num))
+    
+    dX <- (mu*num.m) - (beta2*(x.num)*((i.num+ia.num) / num)) - (mu*(x.num))
+    dY <- (beta2*(x.num)*((i.num+ia.num) / num)) - (lambda2*(y.num)) - (mu*(y.num))
+    dZ <- (lambda2*(y.num)) - (mu*(z.num))
+
+    list(c(dS,
+           dE,
+           dI,
+           dIa,
+           dR,
+           dX,
+           dY,
+           dZ,
+           se.flow <- (beta1*s.num*(z.num / num.m)),
+           ei.flow <- (lambda1*e.num),
+           ir.flow<- gamma*(i.num + ia.num),
+           xy.flow <- (beta2*x.num*((i.num + ia.num) / num)),
+           yz.flow <- (lambda2*y.num)
+    ))
+  })
+}
+
+```
+
+```{r}
+param <-param.dcm(beta1 = 0.14,
+                  beta2 = 0.4,
+                  theta = 0.97,
+                  lambda1 = 0.5,
+                  lambda2 = 0.5,
+                  gamma = 0.25,
+                  mu = 0.05)
+                  #omega = 0.25)
+init <-init.dcm(s.num = 787836,
+                e.num = 0,
+                i.num = 0,
+                ia.num = 0,
+                r.num = 0,
+                x.num = 3300000,
+                y.num = 3300000,
+                z.num = 3300000,
+                se.flow = 0,
+                ei.flow = 0,
+                ir.flow = 0,
+                xy.flow = 0,
+                yz.flow = 0)
+control <-control.dcm(nsteps =365, new.mod = chikv) 
+
+sim <- dcm(param, init, control)
+
+sim <- mutate_epi(sim, num = s.num + e.num + i.num + ia.num + r.num)
+sim <- mutate_epi(sim, 
+                  symp.prev = i.num / num,
+                  se.prop = se.flow / num,
+                  ei.prop = ei.flow / num,
+                  ir.prop = ir.flow / num
+)
+
+plot(sim,y=c("s.num", "i.num", "e.num", "r.num"),legend="full")
+plot(sim,y=c("i.num"),legend="full")
+plot(sim,y=c("symp.prev"),legend="full")
+
+plot(sim,y=c("se.flow", "ei.flow", "ir.flow"),legend="full")
+plot(sim,y=c("se.prop", "ei.prop", "ir.prop"),legend="full",ylim=c(0, 0.08))
+```
+
+```{r, echo=FALSE}
+df<-as.data.frame(sim)
+print("Peak Incidence")
+max(df$se.prop) 
+
+print("Peak Prevalence")
+max(df$symp.prev) 
+```
+
+Peak prevalence and peak incidence are reduced here - because we introduce more 
+uninfected susceptibles than in the prior model if I assume that all mosquitos 
+breed to create suseceptible mosquitos.
