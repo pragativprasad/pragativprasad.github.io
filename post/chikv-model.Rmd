@@ -16,7 +16,6 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3590184/
 
 ```{r}
 suppressMessages(library(EpiModel))
-suppressMessages(library(ergm))
 
 ```
 
