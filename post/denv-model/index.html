@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Pragati V. Prasad">
+    <meta name="description" content="Pragati&#39;s Site">
+    <meta name="keywords" content="epidemiolgist,infectious,disease,epidemiology,pragati,prasad,emory,atlanta,texas,austin">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DENV Model"/>
+<meta name="twitter:description" content="Based on this:
+Kong L, Wang J, Li Z, et al. Modeling the Heterogeneity of Dengue Transmission in a City. Int J Environ Res Public Health. 2018;15(6):1128. Published 2018 May 31. doi:10.3390/ijerph15061128
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6025315/
+suppressMessages(library(EpiModel)) denv &lt;-function(t, t0, parms) { with(as.list(c(t0, parms)), { numH &lt;- sh.num &#43; eh.num &#43; ih.num &#43; rh.num numV &lt;- sv.num &#43; ev.num &#43; iv.num lambdaH &lt;- log(1 &#43; ((alpha*rhoV*iv.num)/(kappa*numH))) lambdaV &lt;- log(1 &#43; ((alpha*rhoH*ih.num)/(kappa*numH))) dSh &lt;- (muH*numH) - (kappa*lambdaH*sh."/>
+
+    <meta property="og:title" content="DENV Model" />
+<meta property="og:description" content="Based on this:
+Kong L, Wang J, Li Z, et al. Modeling the Heterogeneity of Dengue Transmission in a City. Int J Environ Res Public Health. 2018;15(6):1128. Published 2018 May 31. doi:10.3390/ijerph15061128
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6025315/
+suppressMessages(library(EpiModel)) denv &lt;-function(t, t0, parms) { with(as.list(c(t0, parms)), { numH &lt;- sh.num &#43; eh.num &#43; ih.num &#43; rh.num numV &lt;- sv.num &#43; ev.num &#43; iv.num lambdaH &lt;- log(1 &#43; ((alpha*rhoV*iv.num)/(kappa*numH))) lambdaV &lt;- log(1 &#43; ((alpha*rhoH*ih.num)/(kappa*numH))) dSh &lt;- (muH*numH) - (kappa*lambdaH*sh." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/denv-model/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-10-31T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-10-31T00:00:00+00:00" />
+
+
+
+    
+      <base href="/post/denv-model/">
+    
+    <title>
+  DENV Model · Pragati V. Prasad
+</title>
+
+    
+      <link rel="canonical" href="/post/denv-model/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css" integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz&#43;DRsBr08iQK1YWABpw=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+      <link rel="stylesheet" href="/css/custom.css" />
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.92.1" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Pragati V. Prasad
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="/about/">About</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="/post/">Posts</a>
+          </li>
+        
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container page">
+  <article>
+    <header>
+      <h1>DENV Model</h1>
+    </header>
+
+    
+
+
+<p>Based on this:</p>
+<p>Kong L, Wang J, Li Z, et al. Modeling the Heterogeneity of Dengue Transmission in a City. Int J Environ Res Public Health. 2018;15(6):1128. Published 2018 May 31. <a href="doi:10.3390/ijerph15061128" class="uri">doi:10.3390/ijerph15061128</a></p>
+<p><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6025315/" class="uri">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6025315/</a></p>
+<pre class="r"><code>suppressMessages(library(EpiModel))</code></pre>
+<pre class="r"><code>denv &lt;-function(t, t0, parms) {
+  with(as.list(c(t0, parms)), {
+    
+    numH &lt;- sh.num + eh.num + ih.num + rh.num 
+    numV &lt;- sv.num + ev.num + iv.num
+
+    lambdaH &lt;- log(1 + ((alpha*rhoV*iv.num)/(kappa*numH)))
+    lambdaV &lt;- log(1 + ((alpha*rhoH*ih.num)/(kappa*numH)))
+    
+    dSh &lt;- (muH*numH) - (kappa*lambdaH*sh.num) - (muH*sh.num)
+    dEh &lt;- (kappa*lambdaH*sh.num) - ((deltaH + muH)*eh.num)
+    dIh &lt;- (deltaH*eh.num) - ((gammaH + muH)*ih.num)
+    dRh &lt;- (gammaH*ih.num) -  (muH*rh.num)
+    
+    dSv &lt;- (muV*numV) - (kappa*lambdaV*sv.num) - (muV*sv.num)
+    dEv &lt;- (kappa*lambdaV*sv.num) - ((deltaV + muV)*ev.num)
+    dIv &lt;- (deltaV*ev.num) - (muV*iv.num)
+    
+    list(c(dSh,
+           dEh,
+           dIh,
+           dRh,
+           dSv,
+           dEv,
+           dIv,
+           se.flow &lt;- (kappa*lambdaH*sh.num),
+           ei.flow &lt;- (deltaH*eh.num),
+           ir.flow&lt;- (gammaH*ih.num)
+    ))
+  })
+}</code></pre>
+<pre class="r"><code>param &lt;-param.dcm(alpha = 1,
+                  rhoV = 0.5,
+                  rhoH = 0.75,
+                  muH = 1/(75*365),
+                  muV = 1/21,
+                  deltaH = 1/7,
+                  deltaV = 1/10,
+                  gammaH = 1/4.5,
+                  kappa = c(0.1, 0.01, 0.001, 0.0001))
+init &lt;-init.dcm(sh.num = 12.8389e6,
+                eh.num = 0,
+                ih.num = 0,
+                rh.num = 0,
+                sv.num = 33000000,
+                ev.num = 33000000,
+                iv.num = 33000000,
+                se.flow = 0,
+                ei.flow = 0,
+                ir.flow = 0)
+control &lt;-control.dcm(nsteps =200, new.mod = denv) 
+
+sim &lt;- dcm(param, init, control)
+
+sim &lt;- mutate_epi(sim, numH = sh.num + eh.num + ih.num + rh.num)
+sim &lt;- mutate_epi(sim, numV = sv.num + ev.num + iv.num)
+sim &lt;- mutate_epi(sim, 
+                  symp.prev = ih.num / numH,
+                  se.prop = se.flow / numH,
+                  ei.prop = ei.flow / numH,
+                  ir.prop = ir.flow / numH
+)
+
+plot(sim,y=c(&quot;sh.num&quot;, &quot;eh.num&quot;, &quot;ih.num&quot;, &quot;rh.num&quot;),legend=&quot;full&quot;, main = &quot;Kappa = 0.1&quot;)</code></pre>
+<p><img src="/post/denv-model_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;sh.num&quot;),legend=&quot;full&quot;, main = &quot;Susceptibles&quot;)</code></pre>
+<p><img src="/post/denv-model_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;eh.num&quot;),legend=&quot;full&quot;, main = &quot;Pre-infectious&quot;)</code></pre>
+<p><img src="/post/denv-model_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;ih.num&quot;),legend=&quot;full&quot;, main = &quot;Infectious&quot;)</code></pre>
+<p><img src="/post/denv-model_files/figure-html/unnamed-chunk-3-4.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;rh.num&quot;),legend=&quot;full&quot;, main = &quot;Recovered&quot;)</code></pre>
+<p><img src="/post/denv-model_files/figure-html/unnamed-chunk-3-5.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;symp.prev&quot;),legend=&quot;full&quot;, main = &quot;Proportional Prevalence&quot;, ylim = c(0, 0.5))</code></pre>
+<p><img src="/post/denv-model_files/figure-html/unnamed-chunk-3-6.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;se.flow&quot;),legend=&quot;full&quot;, main = &quot;S -&gt; E&quot;)</code></pre>
+<p><img src="/post/denv-model_files/figure-html/unnamed-chunk-3-7.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;ei.flow&quot;),legend=&quot;full&quot;, main = &quot;E -&gt; I&quot;)</code></pre>
+<p><img src="/post/denv-model_files/figure-html/unnamed-chunk-3-8.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;ir.flow&quot;),legend=&quot;full&quot;, main = &quot;I -&gt; R&quot;)</code></pre>
+<p><img src="/post/denv-model_files/figure-html/unnamed-chunk-3-9.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;se.prop&quot;),legend=&quot;full&quot;, main = &quot;Proportional S -&gt; E&quot;, ylim = c(0, 0.225))</code></pre>
+<p><img src="/post/denv-model_files/figure-html/unnamed-chunk-3-10.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;ei.prop&quot;),legend=&quot;full&quot;, main = &quot;Proportional E -&gt; I&quot;, ylim = c(0, 0.1))</code></pre>
+<p><img src="/post/denv-model_files/figure-html/unnamed-chunk-3-11.png" width="672" /></p>
+<pre class="r"><code>plot(sim,y=c(&quot;ir.prop&quot;),legend=&quot;full&quot;, main = &quot;Proportional I -&gt; R&quot;, ylim = c(0, 0.1))</code></pre>
+<p><img src="/post/denv-model_files/figure-html/unnamed-chunk-3-12.png" width="672" /></p>
+
+  </article>
+</section>
+
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+     © 2022
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>
