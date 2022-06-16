@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>chikv on Pragati V. Prasad</title>
+    <link>/tags/chikv/</link>
+    <description>Recent content in chikv on Pragati V. Prasad</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 12 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/chikv/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Complicated Chikungunya Model</title>
+      <link>/post/chikv-model-1/</link>
+      <pubDate>Sun, 12 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/chikv-model-1/</guid>
+      <description>A majority of my work so far has been in respitatory viruses and HIV, so developing models for vector-borne viruses is a fun challenge for me. Here, we have my take on a Chikungunya model developed by Yakob &amp;amp; Clements for the 2006 Réunion Island outbreak.
+They mention that there are approximately 785,000 inhabitants on Réunion Island so I assume that this is the population size they use.
+For the mosquito population: 9 million?</description>
+    </item>
+    
+  </channel>
+</rss>

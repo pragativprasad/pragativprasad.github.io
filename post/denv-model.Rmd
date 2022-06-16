@@ -1,20 +1,28 @@
 ---
-title: DENV Model
+title: "A Simple Dengue Model"
 author: Pragati Prasad
-date: '2019-10-31'
-slug: denv-model
-categories: []
-tags: []
+date: '2022-05-30'
+slug: denv-model-1
+categories: ["dengue", "denv", "epimodel", "epidemic", "epidemiology"]
+tags: ["dengue", "denv", "epimodel", "epidemic", "epidemiology", "guangzhou"]
+output: html_document 
 ---
 
-Based on this:
+The following is my rendition of a 2018 [Kong et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6025315/) model for the 2014 dengue outbreak in Guangzhou, China using [EpiModel](https://www.epimodel.org).
 
+I calibrated to the NBD-SEIR-SEI model described, and Kong et al. Figure 6 matches my Figure 4 below. Depending on mixing, the total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million. This illustrates the importance of accounting for dispersion (i.e. superspreading, clustering, heterogeneity, etc.) in all transmission models.
+
+In a subsequent post, I'll develop the extended model in this paper and try to fit to their data.
+
+Full code is on [Github](https://github.com/pragativprasad/pragativprasad.github.io).
+
+**Reference:**
 Kong L, Wang J, Li Z, et al. Modeling the Heterogeneity of Dengue Transmission in a City. Int J Environ Res Public Health. 2018;15(6):1128. Published 2018 May 31. doi:10.3390/ijerph15061128
 
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6025315/
 
+## Model 
 
-```{r}
+```{r, echo=FALSE}
 suppressMessages(library(EpiModel))
 ```
 
@@ -54,7 +62,8 @@ denv <-function(t, t0, parms) {
 
 ```
 
-```{r}
+
+```{r, echo=FALSE}
 param <-param.dcm(alpha = 1,
                   rhoV = 0.5,
                   rhoH = 0.75,
@@ -63,18 +72,18 @@ param <-param.dcm(alpha = 1,
                   deltaH = 1/7,
                   deltaV = 1/10,
                   gammaH = 1/4.5,
-                  kappa = c(0.1, 0.01, 0.001, 0.0001))
-init <-init.dcm(sh.num = 12.8389e6,
-                eh.num = 0,
+                  kappa = c(1, 0.1, 0.01, 0.001, 0.0001))
+init <-init.dcm(sh.num = 10e6,
+                eh.num = 1,
                 ih.num = 0,
                 rh.num = 0,
-                sv.num = 33000000,
-                ev.num = 33000000,
-                iv.num = 33000000,
+                sv.num = 10e6,
+                ev.num = 0,
+                iv.num = 0,
                 se.flow = 0,
                 ei.flow = 0,
                 ir.flow = 0)
-control <-control.dcm(nsteps =200, new.mod = denv) 
+control <-control.dcm(nsteps =300, new.mod = denv) 
 
 sim <- dcm(param, init, control)
 
@@ -86,22 +95,45 @@ sim <- mutate_epi(sim,
                   ei.prop = ei.flow / numH,
                   ir.prop = ir.flow / numH
 )
+```
 
-plot(sim,y=c("sh.num", "eh.num", "ih.num", "rh.num"),legend="full", main = "Kappa = 0.1")
-plot(sim,y=c("sh.num"),legend="full", main = "Susceptibles")
-plot(sim,y=c("eh.num"),legend="full", main = "Pre-infectious")
-plot(sim,y=c("ih.num"),legend="full", main = "Infectious")
-plot(sim,y=c("rh.num"),legend="full", main = "Recovered")
+## Plots
 
-plot(sim,y=c("symp.prev"),legend="full", main = "Proportional Prevalence", ylim = c(0, 0.5))
+```{r, echo=FALSE}
 
-plot(sim,y=c("se.flow"),legend="full", main = "S -> E")
-plot(sim,y=c("ei.flow"),legend="full", main = "E -> I")
-plot(sim,y=c("ir.flow"),legend="full", main = "I -> R")
+names(sim$epi$sh.num) <- paste0("Kappa=", sim$param$kappa)
+names(sim$epi$eh.num) <- paste0("Kappa=", sim$param$kappa)
+names(sim$epi$ih.num) <- paste0("Kappa=", sim$param$kappa)
+names(sim$epi$rh.num) <- paste0("Kappa=", sim$param$kappa)
+names(sim$epi$symp.prev) <- paste0("Kappa=", sim$param$kappa)
+names(sim$epi$se.flow) <- paste0("Kappa=", sim$param$kappa)
+names(sim$epi$ei.flow) <- paste0("Kappa=", sim$param$kappa)
+names(sim$epi$ir.flow) <- paste0("Kappa=", sim$param$kappa)
+names(sim$epi$se.prop) <- paste0("Kappa=", sim$param$kappa)
+names(sim$epi$ei.prop) <- paste0("Kappa=", sim$param$kappa)
+names(sim$epi$ir.prop) <- paste0("Kappa=", sim$param$kappa)
 
-plot(sim,y=c("se.prop"),legend="full", main = "Proportional S -> E", ylim = c(0, 0.225))
-plot(sim,y=c("ei.prop"),legend="full", main = "Proportional E -> I", ylim = c(0, 0.1))
-plot(sim,y=c("ir.prop"),legend="full", main = "Proportional I -> R", ylim = c(0, 0.1))
+plot(sim,y=c("sh.num", "eh.num", "ih.num", "rh.num"),legend="full", main = "Figure 1. All Compartments, Kappa = 1")
+plot(sim,y=c("sh.num"),legend="full", main = "Figure 2. Susceptibles")
+plot(sim,y=c("eh.num"),legend="full", main = "Figure 3. Pre-infectious")
+plot(sim,y=c("ih.num"),legend="full", main = "Figure 4. Infectious")
+plot(sim,y=c("rh.num"),legend="full", main = "Figure 5. Recovered")
+
+plot(sim,y=c("symp.prev"),legend="full", main = "Figure 6. Proportional Prevalence", ylim = c(0, 0.5))
+
+plot(sim,y=c("se.flow"),legend="full", main = "Figure 7. S -> E")
+plot(sim,y=c("ei.flow"),legend="full", main = "Figure 8. E -> I")
+plot(sim,y=c("ir.flow"),legend="full", main = "Figure 9. I -> R")
+
+plot(sim,y=c("se.prop"),legend="full", main = "Figure 10. Proportional S -> E", ylim = c(0, 0.225))
+plot(sim,y=c("ei.prop"),legend="full", main = "Figure 11. Proportional E -> I", ylim = c(0, 0.1))
+plot(sim,y=c("ir.prop"),legend="full", main = "Figure 12. Proportional I -> R", ylim = c(0, 0.1))
+
+
+total <- data.frame(Kappa = as.numeric(gsub("Kappa=", "", names(floor(colSums(sim$epi$ei.flow))))),
+                    Total = floor(colSums(sim$epi$ei.flow)))
+row.names(total) <- NULL
+knitr::kable(total, caption = "Overall Infections", format = "html", format.args = list(big.mark = ","))
 
 ```
 

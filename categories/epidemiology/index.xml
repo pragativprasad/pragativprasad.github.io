@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>epidemiology on Pragati V. Prasad</title>
+    <link>/categories/epidemiology/</link>
+    <description>Recent content in epidemiology on Pragati V. Prasad</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 12 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/epidemiology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Complicated Chikungunya Model</title>
+      <link>/post/chikv-model-1/</link>
+      <pubDate>Sun, 12 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/chikv-model-1/</guid>
+      <description>A majority of my work so far has been in respitatory viruses and HIV, so developing models for vector-borne viruses is a fun challenge for me. Here, we have my take on a Chikungunya model developed by Yakob &amp;amp; Clements for the 2006 Réunion Island outbreak.
+They mention that there are approximately 785,000 inhabitants on Réunion Island so I assume that this is the population size they use.
+For the mosquito population: 9 million?</description>
+    </item>
+    
+    <item>
+      <title>A Simple Dengue Model</title>
+      <link>/post/denv-model-1/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/denv-model-1/</guid>
+      <description>The following is my rendition of a 2018 Kong et al. model for the 2014 dengue outbreak in Guangzhou, China using EpiModel.
+I calibrated to the NBD-SEIR-SEI model described, and Kong et al. Figure 6 matches my Figure 4 below. Depending on mixing, the total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million. This illustrates the importance of accounting for dispersion (i.e. superspreading, clustering, heterogeneity, etc.</description>
+    </item>
+    
+  </channel>
+</rss>

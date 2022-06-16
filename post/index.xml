@@ -6,29 +6,26 @@
     <description>Recent content in Posts on Pragati V. Prasad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 31 Oct 2019 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>DENV Model</title>
-      <link>/post/denv-model/</link>
-      <pubDate>Thu, 31 Oct 2019 00:00:00 +0000</pubDate>
+      <title>A Complicated Chikungunya Model</title>
+      <link>/post/chikv-model-1/</link>
+      <pubDate>Sun, 12 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>/post/denv-model/</guid>
-      <description>Based on this:
-Kong L, Wang J, Li Z, et al. Modeling the Heterogeneity of Dengue Transmission in a City. Int J Environ Res Public Health. 2018;15(6):1128. Published 2018 May 31. doi:10.3390/ijerph15061128
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6025315/
-suppressMessages(library(EpiModel)) denv &amp;lt;-function(t, t0, parms) { with(as.list(c(t0, parms)), { numH &amp;lt;- sh.num + eh.num + ih.num + rh.num numV &amp;lt;- sv.num + ev.num + iv.num lambdaH &amp;lt;- log(1 + ((alpha*rhoV*iv.num)/(kappa*numH))) lambdaV &amp;lt;- log(1 + ((alpha*rhoH*ih.num)/(kappa*numH))) dSh &amp;lt;- (muH*numH) - (kappa*lambdaH*sh.</description>
+      <guid>/post/chikv-model-1/</guid>
+      <description>A majority of my work so far has been in respitatory viruses and HIV, so developing models for vector-borne viruses is a fun challenge for me. Here, we have my take on a Chikungunya model developed by Yakob &amp;amp; Clements for the 2006 Réunion Island outbreak.
+They mention that there are approximately 785,000 inhabitants on Réunion Island so I assume that this is the population size they use.
+For the mosquito population: 9 million?</description>
     </item>
     
     <item>
-      <title>CHIKV Model</title>
-      <link>/post/chikv-model/</link>
-      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
+      <title>A Simple Dengue Model</title>
+      <link>/post/denv-model-1/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>/post/chikv-model/</guid>
-      <description>Based on this:
-Yakob L, Clements AC. A mathematical model of chikungunya dynamics and control: the major epidemic on Réunion Island. PLoS One. 2013;8(3):e57448. doi:10.1371/journal.pone.0057448
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3590184/
-suppressMessages(library(EpiModel)) chikv &amp;lt;-function(t, t0, parms) { with(as.list(c(t0, parms)), { num &amp;lt;- s.num + e.num + i.num + ia.num + r.num num.m &amp;lt;- x.num + y.num + z.num dS &amp;lt;- -1*beta1*(s.num)*(z.num / num.m) dE &amp;lt;- (beta1*(s.num)*(z.num / num.m)) - (lambda1*(e.num)) dI &amp;lt;- (theta*lambda1*(e.num)) - (gamma*(i.</description>
+      <guid>/post/denv-model-1/</guid>
+      <description>The following is my rendition of a 2018 Kong et al. model for the 2014 dengue outbreak in Guangzhou, China using EpiModel.
+I calibrated to the NBD-SEIR-SEI model described, and Kong et al. Figure 6 matches my Figure 4 below. Depending on mixing, the total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million. This illustrates the importance of accounting for dispersion (i.e. superspreading, clustering, heterogeneity, etc.</description>
     </item>
     
   </channel>

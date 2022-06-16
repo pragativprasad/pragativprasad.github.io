@@ -1,0 +1,287 @@
+---
+title: A Difficult Chikungunya Model 1
+author: Pragati Prasad
+date: '2022-06-12'
+slug: chikv-model-1
+categories: ["chikungunya", "chikv", "epimodel", "epidemic", "epidemiology"]
+tags: ["chikungunya", "chikv", "epimodel", "epidemic", "epidemiology", "reunion"]
+output: html_document 
+---
+
+A majority of my work so far has been in respitatory viruses and HIV, so developing models for vector-borne viruses is a fun challenge for me. Here, we have my take on a Chikungunya model developed by [Yakob & Clements](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3590184/) for the 2006 Réunion Island outbreak.
+
+They mention that there are approximately 785,000 inhabitants on Réunion Island so I assume that this is the population size they use.
+
+For the mosquito population: 9 million? [Brazil has 10-250 million mosquitos](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6069545/), but I use 9 million for Reunion Island initially.
+
+I disregard out the \omega variable in this analysis because quantifying the number of symptomatic individuals is not important to us.
+
+**References:** 
+
+Yakob L, Clements AC. A mathematical model of chikungunya dynamics and control: the major epidemic on Réunion Island. PLoS One. 2013;8(3):e57448. doi:10.1371/journal.pone.0057448
+
+Gérardin P, Guernier V, Perrau J, et al. Estimating Chikungunya prevalence in La Réunion Island outbreak by serosurveys: two methods for two critical times of the epidemic. BMC Infect Dis. 2008;8:99. Published 2008 Jul 28. doi:10.1186/1471-2334-8-99
+
+Suparit P, Wiratsudakul A, Modchang C. A mathematical model for Zika virus transmission dynamics with a time-dependent mosquito biting rate. Theor Biol Med Model. 2018;15(1):11. Published 2018 Aug 1. doi:10.1186/s12976-018-0083-z
+
+## Model
+
+```{r, echo=FALSE}
+suppressMessages(library(EpiModel))
+
+```
+
+```{r}
+
+chikv <-function(t, t0, parms) {
+  with(as.list(c(t0, parms)), {
+    
+    num <- s.num + e.num + i.num + ia.num + r.num 
+    num.m <- x.num + y.num + z.num
+
+    dS <- -1*beta1*(s.num)*(z.num / num.m)
+    dE <- (beta1*(s.num)*(z.num / num.m)) - (lambda1*(e.num))
+    dI <- (theta*lambda1*(e.num)) - (gamma*(i.num))
+    dIa <- ((1 - theta)*lambda1*(e.num)) - (gamma*(ia.num))
+    dR <- gamma*((i.num + ia.num))
+    
+    dX <- (mu*x.num) - (beta2*(x.num)*((i.num+ia.num) / num)) - (mu*(x.num))
+    dY <- (beta2*(x.num)*((i.num+ia.num) / num)) - (lambda2*(y.num)) - (mu*(y.num))
+    dZ <- (lambda2*(y.num)) - (mu*(z.num))
+
+    list(c(dS,
+           dE,
+           dI,
+           dIa,
+           dR,
+           dX,
+           dY,
+           dZ,
+           se.flow <- (beta1*s.num*(z.num / num.m)),
+           ei.flow <- (lambda1*e.num),
+           ir.flow<- gamma*(i.num + ia.num),
+           xy.flow <- (beta2*x.num*((i.num + ia.num) / num)),
+           yz.flow <- (lambda2*y.num)
+    ))
+  })
+}
+
+```
+
+
+
+```{r, echo=FALSE}
+param <-param.dcm(beta1 = 0.14,
+                  beta2 = 0.4,
+                  theta = 0.97,
+                  lambda1 = 0.5,
+                  lambda2 = 0.5,
+                  gamma = 0.25,
+                  mu = 0.05)
+                  #omega = 0.25)
+init <-init.dcm(s.num = 785000,
+                e.num = 1,
+                i.num = 1,
+                ia.num = 1,
+                r.num = 0,
+                x.num = 9e6,
+                y.num = 0,
+                z.num = 0,
+                se.flow = 0,
+                ei.flow = 0,
+                ir.flow = 0,
+                xy.flow = 0,
+                yz.flow = 0)
+control <-control.dcm(nsteps =365, new.mod = chikv) 
+
+sim <- dcm(param, init, control)
+
+sim <- mutate_epi(sim, num = s.num + e.num + i.num + ia.num + r.num)
+sim <- mutate_epi(sim, 
+                  symp.prev = i.num / num,
+                  se.prop = se.flow / num,
+                  ei.prop = ei.flow / num,
+                  ir.prop = ir.flow / num
+)
+
+plot(sim,y=c("s.num", "i.num", "e.num", "r.num"),legend="full")
+plot(sim,y=c("i.num"),legend="full")
+plot(sim,y=c("symp.prev"),legend="full")
+
+plot(sim,y=c("se.flow", "ei.flow", "ir.flow"),legend="full")
+plot(sim,y=c("se.prop", "ei.prop", "ir.prop"),legend="full",ylim=c(0, 0.08))
+```
+
+```{r, echo=FALSE}
+df<-as.data.frame(sim)
+
+table <- data.frame(`Peak Incidence` = paste0(round(max(df$se.prop)*100, 1), "%"),
+                    `Peak Prevalence` = paste0(round(max(df$symp.prev)*100, 1), "%"),
+                    `Total Infected` = paste0(round(100*sum(df$ei.flow) / 785000, 1), "%"))
+
+knitr::kable(table, format = "html")
+```
+
+Peak Incidence here is not consistent with the paper's findings (5.3%). Final attack rate should be around 42%, not 98.4% as we found here.
+We've only done a deterministic analysis, but it still doesn't really add up.
+
+
+It doesn't really make sense to me that only uninfected mosquitos (in the X compartment) 
+would be breeding. Wouldn't mosquitos in all compartments procreate?
+
+I change this below:
+
+```{r}
+
+chikv <-function(t, t0, parms) {
+  with(as.list(c(t0, parms)), {
+    
+    num <- s.num + e.num + i.num + ia.num + r.num 
+    num.m <- x.num + y.num + z.num
+
+    dS <- -1*beta1*(s.num)*(z.num / num.m)
+    dE <- (beta1*(s.num)*(z.num / num.m)) - (lambda1*(e.num))
+    dI <- (theta*lambda1*(e.num)) - (gamma*(i.num))
+    dIa <- ((1 - theta)*lambda1*(e.num)) - (gamma*(ia.num))
+    dR <- gamma*((i.num + ia.num))
+    
+    dX <- (mu*num.m) - (beta2*(x.num)*((i.num+ia.num) / num)) - (mu*(x.num))
+    dY <- (beta2*(x.num)*((i.num+ia.num) / num)) - (lambda2*(y.num)) - (mu*(y.num))
+    dZ <- (lambda2*(y.num)) - (mu*(z.num))
+
+    list(c(dS,
+           dE,
+           dI,
+           dIa,
+           dR,
+           dX,
+           dY,
+           dZ,
+           se.flow <- (beta1*s.num*(z.num / num.m)),
+           ei.flow <- (lambda1*e.num),
+           ir.flow<- gamma*(i.num + ia.num),
+           xy.flow <- (beta2*x.num*((i.num + ia.num) / num)),
+           yz.flow <- (lambda2*y.num)
+    ))
+  })
+}
+
+```
+
+```{r, echo=FALSE}
+param <-param.dcm(beta1 = 0.14,
+                  beta2 = 0.4,
+                  theta = 0.97,
+                  lambda1 = 0.5,
+                  lambda2 = 0.5,
+                  gamma = 0.25,
+                  mu = 0.05)
+                  #omega = 0.25)
+init <-init.dcm(s.num = 785000,
+                e.num = 1,
+                i.num = 0,
+                ia.num = 0,
+                r.num = 0,
+                x.num = 9e6,
+                y.num = 0,
+                z.num = 0,
+                se.flow = 0,
+                ei.flow = 0,
+                ir.flow = 0,
+                xy.flow = 0,
+                yz.flow = 0)
+control <-control.dcm(nsteps =365, new.mod = chikv) 
+
+sim <- dcm(param, init, control)
+
+sim <- mutate_epi(sim, num = s.num + e.num + i.num + ia.num + r.num)
+sim <- mutate_epi(sim, 
+                  symp.prev = i.num / num,
+                  se.prop = se.flow / num,
+                  ei.prop = ei.flow / num,
+                  ir.prop = ir.flow / num
+)
+
+plot(sim,y=c("s.num", "i.num", "e.num", "r.num"),legend="full")
+plot(sim,y=c("i.num"),legend="full")
+plot(sim,y=c("symp.prev"),legend="full")
+
+plot(sim,y=c("se.flow", "ei.flow", "ir.flow"),legend="full")
+plot(sim,y=c("se.prop", "ei.prop", "ir.prop"),legend="full",ylim=c(0, 0.08))
+```
+
+```{r, echo=FALSE}
+df<-as.data.frame(sim)
+
+table <- data.frame(`Peak Incidence` = paste0(round(max(df$se.prop)*100, 1), "%"),
+                    `Peak Prevalence` = paste0(round(max(df$symp.prev)*100, 1), "%"),
+                    `Total Infected` = paste0(round(100*sum(df$ei.flow) / 785000, 1), "%"))
+
+knitr::kable(table, format = "html")
+```
+
+
+Peak prevalence and peak incidence are actually slightly reduced here - because we introduce more 
+uninfected susceptibles than in the prior model if I assume that all mosquitos 
+breed to create suseceptible mosquitos.
+
+Either way, our EpiModel version of this chikungunya model is grossly overestimating the transmission process... Let's try altering the mosquito population - from 9 million to 785,000. One mosquito per human.
+
+```{r, echo=FALSE}
+param <-param.dcm(beta1 = 0.14,
+                  beta2 = 0.4,
+                  theta = 0.97,
+                  lambda1 = 0.5,
+                  lambda2 = 0.5,
+                  gamma = 0.25,
+                  mu = 0.05)
+init <-init.dcm(s.num = 785000,
+                e.num = 1,
+                i.num = 0,
+                ia.num = 0,
+                r.num = 0,
+                x.num = 785000,
+                y.num = 0,
+                z.num = 0,
+                se.flow = 0,
+                ei.flow = 0,
+                ir.flow = 0,
+                xy.flow = 0,
+                yz.flow = 0)
+control <-control.dcm(nsteps =365, new.mod = chikv) 
+
+sim <- dcm(param, init, control)
+
+sim <- mutate_epi(sim, num = s.num + e.num + i.num + ia.num + r.num)
+sim <- mutate_epi(sim, 
+                  symp.prev = i.num / num,
+                  se.prop = se.flow / num,
+                  ei.prop = ei.flow / num,
+                  ir.prop = ir.flow / num
+)
+
+plot(sim,y=c("s.num", "i.num", "e.num", "r.num"),legend="full")
+plot(sim,y=c("i.num"),legend="full")
+plot(sim,y=c("symp.prev"),legend="full")
+
+plot(sim,y=c("se.flow", "ei.flow", "ir.flow"),legend="full")
+plot(sim,y=c("se.prop", "ei.prop", "ir.prop"),legend="full",ylim=c(0, 0.08))
+```
+
+```{r, echo=FALSE}
+df<-as.data.frame(sim)
+
+table <- data.frame(`Peak Incidence` = paste0(round(max(df$se.prop)*100, 1), "%"),
+                    `Peak Prevalence` = paste0(round(max(df$symp.prev)*100, 1), "%"),
+                    `Total Infected` = paste0(round(100*sum(df$ei.flow) / 785000, 1), "%"))
+
+knitr::kable(table, format = "html")
+```
+
+Even if I edit the number of mosquitos in the population but keep the model the same, we get the same dynamics within the human population. 
+
+This is an example of how infectious disease models are not always replicable because of interpretation of parameters and underlying methods. It is actually important to have models that acknowledge different nuances that are left out in others to show a range of outcomes. 
+
+But, this is why using multiple models is a MUST if we're relying on models to make important policy or intervention decisions. Even better would be publicly available code! 
+
+I'll eventually recreate some COVID-19 models to highlight the same message.
