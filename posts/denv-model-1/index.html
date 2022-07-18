@@ -12,27 +12,27 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Model 1: A Simple Dengue Model"/>
 <meta name="twitter:description" content="The following is my rendition of a 2018 Kong et al. model for the 2014 dengue outbreak in Guangzhou, China using EpiModel.
-I calibrated to the NBD-SEIR-SEI model described, and Kong et al. Figure 6 matches my Figure 4 below. Depending on mixing, the total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million. This illustrates the importance of accounting for dispersion (i.e. superspreading, clustering, heterogeneity, etc."/>
+I developed the SEIR-SEI model described by Kong et al., where SEIR respresents the human compartments and SEI represents the vector compartments. The total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million (Table 1). This illustrates the importance of accounting for dispersion (i."/>
 
     <meta property="og:title" content="Model 1: A Simple Dengue Model" />
 <meta property="og:description" content="The following is my rendition of a 2018 Kong et al. model for the 2014 dengue outbreak in Guangzhou, China using EpiModel.
-I calibrated to the NBD-SEIR-SEI model described, and Kong et al. Figure 6 matches my Figure 4 below. Depending on mixing, the total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million. This illustrates the importance of accounting for dispersion (i.e. superspreading, clustering, heterogeneity, etc." />
+I developed the SEIR-SEI model described by Kong et al., where SEIR respresents the human compartments and SEI represents the vector compartments. The total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million (Table 1). This illustrates the importance of accounting for dispersion (i." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/post/denv-model-1/" /><meta property="article:section" content="post" />
+<meta property="og:url" content="/posts/denv-model-1/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-07-16T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-07-16T00:00:00+00:00" />
 
 
 
     
-      <base href="/post/denv-model-1/">
+      <base href="/posts/denv-model-1/">
     
     <title>
   Model 1: A Simple Dengue Model · Pragati V. Prasad
 </title>
 
     
-      <link rel="canonical" href="/post/denv-model-1/">
+      <link rel="canonical" href="/posts/denv-model-1/">
     
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
@@ -90,19 +90,43 @@ I calibrated to the NBD-SEIR-SEI model described, and Kong et al. Figure 6 match
 
       <div class="content">
         
-  <section class="container page">
-  <article>
-    <header>
-      <h1>Model 1: A Simple Dengue Model</h1>
-    </header>
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Model 1: A Simple Dengue Model</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2022-07-16T00:00:00Z'>
+                July 16, 2022
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              2 minutes read
+            </span>
+          </div>
+          <div class="categories">
+  <i class="fas fa-folder"></i>
+    <a href="/categories/model/">model</a>
+      <span class="separator">•</span>
+    <a href="/categories/denv/">denv</a></div>
 
-    
+          
+        </div>
+      </header>
+
+      <div>
+        
 
 
 <p>The following is my rendition of a 2018 <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6025315/">Kong et al.</a> model for the 2014 dengue outbreak in Guangzhou, China using <a href="https://www.epimodel.org">EpiModel</a>.</p>
-<p>I calibrated to the NBD-SEIR-SEI model described, and Kong et al. Figure 6 matches my Figure 4 below. Depending on mixing, the total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million. This illustrates the importance of accounting for dispersion (i.e. superspreading, clustering, heterogeneity, etc.) in all transmission models.</p>
+<p>I developed the SEIR-SEI model described by Kong et al., where SEIR respresents the human compartments and SEI represents the vector compartments. The total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million (Table 1). This illustrates the importance of accounting for dispersion (i.e. superspreading, clustering, heterogeneity, etc.) in all transmission models. The Kong et al. Figure 6 matches Figure 4 below.</p>
 <p>In a subsequent post, I'll develop the extended model in this paper and try to fit to their data.</p>
-<p>Full code is on <a href="https://github.com/pragativprasad/pragativprasad.github.io">Github</a>.</p>
+<p>Full code is on <a href="https://github.com/pragativprasad/pragativprasad.github.io/blob/master/post/denv-model.Rmd">Github</a>.</p>
 <p><strong>Reference:</strong> Kong L, Wang J, Li Z, et al. Modeling the Heterogeneity of Dengue Transmission in a City. Int J Environ Res Public Health. 2018;15(6):1128. Published 2018 May 31. <a href="doi:10.3390/ijerph15061128" class="uri">doi:10.3390/ijerph15061128</a></p>
 <div id="model" class="section level2">
 <h2>Model</h2>
@@ -140,7 +164,7 @@ I calibrated to the NBD-SEIR-SEI model described, and Kong et al. Figure 6 match
 </div>
 <div id="plots" class="section level2">
 <h2>Plots</h2>
-<img src="/post/denv-model_files/figure-html/unnamed-chunk-4-1.png" width="672" /><img src="/post/denv-model_files/figure-html/unnamed-chunk-4-2.png" width="672" /><img src="/post/denv-model_files/figure-html/unnamed-chunk-4-3.png" width="672" /><img src="/post/denv-model_files/figure-html/unnamed-chunk-4-4.png" width="672" /><img src="/post/denv-model_files/figure-html/unnamed-chunk-4-5.png" width="672" /><img src="/post/denv-model_files/figure-html/unnamed-chunk-4-6.png" width="672" /><img src="/post/denv-model_files/figure-html/unnamed-chunk-4-7.png" width="672" /><img src="/post/denv-model_files/figure-html/unnamed-chunk-4-8.png" width="672" /><img src="/post/denv-model_files/figure-html/unnamed-chunk-4-9.png" width="672" /><img src="/post/denv-model_files/figure-html/unnamed-chunk-4-10.png" width="672" /><img src="/post/denv-model_files/figure-html/unnamed-chunk-4-11.png" width="672" /><img src="/post/denv-model_files/figure-html/unnamed-chunk-4-12.png" width="672" />
+<img src="/posts/denv-model_files/figure-html/unnamed-chunk-4-1.png" width="672" /><img src="/posts/denv-model_files/figure-html/unnamed-chunk-4-2.png" width="672" /><img src="/posts/denv-model_files/figure-html/unnamed-chunk-4-3.png" width="672" /><img src="/posts/denv-model_files/figure-html/unnamed-chunk-4-4.png" width="672" /><img src="/posts/denv-model_files/figure-html/unnamed-chunk-4-5.png" width="672" /><img src="/posts/denv-model_files/figure-html/unnamed-chunk-4-6.png" width="672" /><img src="/posts/denv-model_files/figure-html/unnamed-chunk-4-7.png" width="672" /><img src="/posts/denv-model_files/figure-html/unnamed-chunk-4-8.png" width="672" /><img src="/posts/denv-model_files/figure-html/unnamed-chunk-4-9.png" width="672" /><img src="/posts/denv-model_files/figure-html/unnamed-chunk-4-10.png" width="672" /><img src="/posts/denv-model_files/figure-html/unnamed-chunk-4-11.png" width="672" /><img src="/posts/denv-model_files/figure-html/unnamed-chunk-4-12.png" width="672" />
 <table>
 <caption>
 <span id="tab:unnamed-chunk-4">Table 1: </span>Overall Infections
@@ -200,9 +224,39 @@ Total
 </table>
 </div>
 
-  </article>
-</section>
+      </div>
 
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
 
       </div>
 

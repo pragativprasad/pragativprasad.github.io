@@ -8,15 +8,6 @@
     <language>en</language>
     <lastBuildDate>Sat, 16 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>dengue</title>
-      <link>/categories/dengue/</link>
-      <pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/dengue/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>denv</title>
       <link>/categories/denv/</link>
       <pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate>
@@ -26,29 +17,11 @@
     </item>
     
     <item>
-      <title>epidemic</title>
-      <link>/categories/epidemic/</link>
+      <title>model</title>
+      <link>/categories/model/</link>
       <pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>/categories/epidemic/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>epidemiology</title>
-      <link>/categories/epidemiology/</link>
-      <pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/epidemiology/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>epimodel</title>
-      <link>/categories/epimodel/</link>
-      <pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/epimodel/</guid>
+      <guid>/categories/model/</guid>
       <description></description>
     </item>
     

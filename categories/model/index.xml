@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Pragati V. Prasad</title>
-    <link>/</link>
-    <description>Recent content on Pragati V. Prasad</description>
+    <title>model on Pragati V. Prasad</title>
+    <link>/categories/model/</link>
+    <description>Recent content in model on Pragati V. Prasad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 16 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>About</title>
-      <link>/about/</link>
-      <pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/about/</guid>
-      <description>Hello! My name is Pragati and I am an epidemiologist. I&amp;rsquo;m currently a PhD student.
-In an effort to deepen my scientific capabilities, I&amp;rsquo;ll be posting my adaptions of published infectious disease models in Posts. You may find some other modelling and epidemiology content there as well.
-I have a Bachelor of Science in Computer Science from the University of Texas at Austin and a Master of Public Health in Epidemiology from Emory University.</description>
-    </item>
-    
+    <lastBuildDate>Sat, 16 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/model/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Model 1: A Simple Dengue Model</title>
       <link>/posts/denv-model-1/</link>
