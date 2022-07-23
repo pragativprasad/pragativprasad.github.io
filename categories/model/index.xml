@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>model on Pragati V. Prasad</title>
+    <title>Model on Pragati V. Prasad</title>
     <link>/categories/model/</link>
-    <description>Recent content in model on Pragati V. Prasad</description>
+    <description>Recent content in Model on Pragati V. Prasad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 16 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/model/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/model/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Model 2: A Chikungunya Model</title>
+      <link>/posts/model-2/</link>
+      <pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/model-2/</guid>
+      <description>A majority of my work so far has been in respitatory viruses and HIV, so developing models for vector-borne viruses is a fun challenge for me. Here, we have my take on a Chikungunya (CHIKV) model developed by Yakob &amp;amp; Clements for the 2006 Réunion Island outbreak.
+I try a couple of different versions of the model to try to replicate the results here. This post is a short example of the process that goes into model development.</description>
+    </item>
+    
     <item>
       <title>Model 1: A Simple Dengue Model</title>
-      <link>/posts/denv-model-1/</link>
+      <link>/posts/model-1/</link>
       <pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>/posts/denv-model-1/</guid>
-      <description>The following is my rendition of a 2018 Kong et al. model for the 2014 dengue outbreak in Guangzhou, China using EpiModel.
+      <guid>/posts/model-1/</guid>
+      <description>The following is my rendition of a 2018 Kong et al. model for the 2014 dengue (DENV) outbreak in Guangzhou, China using EpiModel.
 I developed the SEIR-SEI model described by Kong et al., where SEIR respresents the human compartments and SEI represents the vector compartments. The total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million (Table 1). This illustrates the importance of accounting for dispersion (i.</description>
     </item>
     

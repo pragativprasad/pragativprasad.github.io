@@ -2,25 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/about/</loc>
-    <lastmod>2022-07-16T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/categories/</loc>
+    <lastmod>2022-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/chikv/</loc>
+    <lastmod>2022-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/model/</loc>
+    <lastmod>2022-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/model-2/</loc>
+    <lastmod>2022-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2022-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2022-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/about/</loc>
     <lastmod>2022-07-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/denv/</loc>
     <lastmod>2022-07-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/categories/model/</loc>
-    <lastmod>2022-07-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/denv-model-1/</loc>
-    <lastmod>2022-07-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/</loc>
-    <lastmod>2022-07-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/</loc>
+    <loc>/posts/model-1/</loc>
     <lastmod>2022-07-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/</loc>

@@ -2,12 +2,12 @@
 title: "Model 1: A Simple Dengue Model"
 author: Pragati Prasad
 date: '2022-07-16'
-slug: denv-model-1
-categories: ["model", "denv"]
+slug: model-1
+categories: ["Model", "DENV"]
 output: html_document 
 ---
 
-The following is my rendition of a 2018 [Kong et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6025315/) model for the 2014 dengue outbreak in Guangzhou, China using [EpiModel](https://www.epimodel.org).
+The following is my rendition of a 2018 [Kong et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6025315/) model for the 2014 dengue (DENV) outbreak in Guangzhou, China using [EpiModel](https://www.epimodel.org).
 
 I developed the SEIR-SEI model described by Kong et al., where SEIR respresents the human compartments and SEI represents the vector compartments. The total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million (Table 1). This illustrates the importance of accounting for dispersion (i.e. superspreading, clustering, heterogeneity, etc.) in all transmission models. The Kong et al. Figure 6 matches Figure 4 below.
 

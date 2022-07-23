@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>denv on Pragati V. Prasad</title>
+    <title>DENV on Pragati V. Prasad</title>
     <link>/categories/denv/</link>
-    <description>Recent content in denv on Pragati V. Prasad</description>
+    <description>Recent content in DENV on Pragati V. Prasad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sat, 16 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/denv/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Model 1: A Simple Dengue Model</title>
-      <link>/posts/denv-model-1/</link>
+      <link>/posts/model-1/</link>
       <pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>/posts/denv-model-1/</guid>
-      <description>The following is my rendition of a 2018 Kong et al. model for the 2014 dengue outbreak in Guangzhou, China using EpiModel.
+      <guid>/posts/model-1/</guid>
+      <description>The following is my rendition of a 2018 Kong et al. model for the 2014 dengue (DENV) outbreak in Guangzhou, China using EpiModel.
 I developed the SEIR-SEI model described by Kong et al., where SEIR respresents the human compartments and SEI represents the vector compartments. The total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million (Table 1). This illustrates the importance of accounting for dispersion (i.</description>
     </item>
     
