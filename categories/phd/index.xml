@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PhD on Pragati V. Prasad</title>
+    <link>/categories/phd/</link>
+    <description>Recent content in PhD on Pragati V. Prasad</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 30 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/phd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Starting my PhD!</title>
+      <link>/posts/phd-1/</link>
+      <pubDate>Sat, 30 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/phd-1/</guid>
+      <description>I quit my job this month and am starting my PhD in Epidemiology.
+This has been a long time coming My main motivation has always been to work on healthcare/public health problems and using computational techniques to achieve that, but it took me awhile to find the right avenue.
+I started off as a computational biologist in 2015. After two years of developing antibody modeling software, I decided to study population-level health and started a masters degree in epidemiology.</description>
+    </item>
+    
+  </channel>
+</rss>
