@@ -1,0 +1,273 @@
+---
+title: "January 2023 Viral & Vaccine News"
+author: "Pragati Prasad"
+date: "2023-02-07"
+slug: news-1
+categories: ["News"]
+output: html_document
+---
+
+This month in virus and vaccine news... 
+
+ - China's lifting of COVID-19 restrictions is being monitored abroad.
+ - Several other countries are following suit in loosening COVID-19 mitigations: Hong Kong, Japan, Spain, Italy, and South Korea.
+ - Israel and EU conduct independent reviews of Pfizer vaccine and don't find a link to strokes.
+ - Uganda announces the end of recent Ebola epidemic.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyRSS)
+library(tidyverse)
+library(lubridate)
+library(stringr)
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+file <- list.files(pattern = "2023-01")
+start_date = as.Date("2023-01-01")
+end_date = as.Date("2023-01-31")
+
+terms <- "outbreak|virus|vaccin"
+
+load(file)
+
+get_news <- function(rss){
+  r <- tidyfeed(
+    feed = rss,
+    config = list(),
+    clean_tags = TRUE,
+    list = FALSE,
+    parse_dates = TRUE
+  )
+  
+  final <- r[r %>%
+    mutate_all(funs(str_detect(., terms)))  %>% 
+    reduce(`|`) ,] 
+    # select(where(~n_distinct(.) > 1))
+  
+  if("entry_last_updated" %in% colnames(final)){
+    final$item_pub_date = final$entry_last_updated
+  } else{
+    final$item_pub_date <- if_else(is.na(final$item_pub_date), final$feed_pub_date, final$item_pub_date)
+  }
+  
+  final <- final %>%
+    mutate(item_pub_date = str_extract(item_pub_date, "^.{10}")) %>%
+    mutate(item_pub_date = as.Date(item_pub_date)) 
+
+  return(final)
+}
+
+```
+
+### United Nations
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+un = rbind(if(exists("un")) un , 
+           get_news(rss = "https://news.un.org/feed/subscribe/en/news/topic/health/feed/rss.xml")) %>%
+  filter(duplicated(item_link) == FALSE) %>%
+  filter(item_pub_date >= start_date, item_pub_date <= end_date) %>%
+  mutate(item_pub_date = format(item_pub_date, "%B %d")) %>% 
+  arrange(item_pub_date)
+
+un_list <- c()
+  
+for (i in 1:nrow(un)){
+  un_list <- c(un_list, 
+               paste0("[", un$item_pub_date[i], ": ", un$item_title[i], "]", "(",un$item_link[i],")"))
+}
+  
+newstring<-paste(un_list, "", collapse = "", sep = "  \n\n")
+```
+
+`r newstring`
+
+### CDC
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+cdc <- rbind(#if(exists("cdc")) cdc,
+             get_news(rss = "https://tools.cdc.gov/podcasts/feed.asp?feedid=183"))%>%
+  filter(duplicated(entry_url) == FALSE) %>%
+  filter(item_pub_date >= start_date, item_pub_date <= end_date) %>%
+  mutate(item_pub_date = format(item_pub_date, "%B %d")) %>% 
+  arrange(item_pub_date)
+
+cdc_list <- c()
+
+for (i in 1:nrow(cdc)){
+  cdc_list <- c(cdc_list, paste0("[", cdc$item_pub_date[i], ": ", cdc$entry_title[i], "]", "(",cdc$entry_url[i],")"))
+}
+
+newstring<-paste(cdc_list, "", collapse = "", sep = "  \n\n")
+```
+
+`r newstring`
+
+### New York Times
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+nyt <- rbind(if(exists("nyt")) nyt,
+             get_news(rss = "https://rss.nytimes.com/services/xml/rss/nyt/Health.xml"))%>%
+  filter(duplicated(item_link) == FALSE) %>%
+  filter(item_pub_date >= start_date, item_pub_date <= end_date) %>%
+  mutate(item_pub_date = format(item_pub_date, "%B %d")) %>% 
+  arrange(item_pub_date)
+
+nyt_list <- c()
+
+for (i in 1:nrow(nyt)){
+  nyt_list <- c(nyt_list, paste0("[", nyt$item_pub_date[i], ": ", nyt$item_title[i], "]", "(",nyt$item_link[i],")"))
+}
+
+newstring<-paste(nyt_list, "", collapse = "", sep = "  \n\n")
+
+```
+
+`r newstring`
+
+### CNN
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+cnn <- rbind(if(exists("cnn")) cnn,
+             get_news(rss = "http://rss.cnn.com/rss/cnn_health.rss")) %>%
+  filter(duplicated(item_link) == FALSE)  %>%
+  mutate(item_title = ifelse(is.na(item_title), item_description, item_title)) %>%
+  filter(!is.na(item_title) & !is.na(item_link) & !is.na(item_description) & !is.na(item_guid)) %>%
+  filter(item_pub_date >= start_date & item_pub_date <= end_date) %>%
+  mutate(item_pub_date = format(item_pub_date, "%B %d")) %>% 
+  arrange(item_pub_date) 
+  
+cnn_list <- c()
+
+for (i in 1:nrow(cnn)){
+  cnn_list <- c(cnn_list, paste0("[", cnn$item_pub_date[i], ": ", cnn$item_title[i], "]", "(",cnn$item_link[i],")"))
+}
+
+newstring<-paste(cnn_list, "", collapse = "", sep = "  \n\n")
+
+if(nrow(cnn) == 0){
+  newstring = "None."
+}
+```
+
+`r newstring`
+
+
+### STAT News
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+stat <- rbind(if(exists("stat")) stat,
+              get_news(rss = "https://www.statnews.com/feed/")) %>%
+  filter(duplicated(item_link) == FALSE) %>%
+  filter(item_pub_date >= start_date, item_pub_date <= end_date) %>%
+  mutate(item_pub_date = format(item_pub_date, "%B %d")) %>% 
+  arrange(item_pub_date) 
+
+stat_list <- c()
+
+for (i in 1:nrow(stat)){
+  stat_list <- c(stat_list, paste0("[", stat$item_pub_date[i], ": ", stat$item_title[i], "]", "(",stat$item_link[i],")"))
+}
+
+newstring<-paste(stat_list, "", collapse = "", sep = "  \n\n")
+
+```
+
+`r newstring`
+
+### FOX News 
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+fox <- rbind(if(exists("fox")) fox,
+             get_news(rss = "https://moxie.foxnews.com/google-publisher/health.xml")) %>%
+  filter(duplicated(item_guid) == FALSE) %>%
+  filter(item_pub_date >= start_date, item_pub_date <= end_date) %>%
+  mutate(item_pub_date = format(item_pub_date, "%B %d")) %>% 
+  arrange(item_pub_date) 
+
+fox_list <- c()
+
+for (i in 1:nrow(fox)){
+  fox_list <- c(fox_list, paste0("[", fox$item_pub_date[i], ": ", fox$item_title[i], "]", "(",fox$item_guid[i],")"))
+}
+
+newstring<-paste(fox_list, "", collapse = "", sep = "  \n\n")
+```
+
+`r newstring`
+
+
+### Reuters
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+reu <- rbind(if(exists("reu")) reu,
+             get_news(rss = "https://www.reutersagency.com/feed/?best-topics=health&post_type=best")) %>%
+  filter(duplicated(item_link) == FALSE) %>%
+  filter(item_pub_date >= start_date, item_pub_date <= end_date) %>%
+  mutate(item_pub_date = format(item_pub_date, "%B %d")) %>% 
+  arrange(item_pub_date) 
+
+reu_list <- c()
+
+for (i in 1:nrow(reu)){
+  reu_list <- c(reu_list, paste0("[", reu$item_pub_date[i], ": ", reu$item_title[i], "]", "(",reu$item_link[i],")"))
+}
+
+newstring<-paste(reu_list, "", collapse = "", sep = "  \n\n")
+
+if(nrow(reu) == 0){
+  newstring = "None."
+}
+```
+
+`r newstring`
+
+
+### NIH
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+nih <- rbind(if(exists("nih")) nih,
+             get_news(rss = "https://www.techtransfer.nih.gov/taxonomy/term/232/feed")) %>%
+  filter(duplicated(item_link) == FALSE) %>%
+  filter(item_pub_date >= start_date, item_pub_date <= end_date) %>%
+  mutate(item_pub_date = format(item_pub_date, "%B %d")) %>% 
+  arrange(item_pub_date) 
+
+nih_list <- c()
+
+for (i in 1:nrow(nih)){
+  nih_list <- c(nih_list, paste0("[", nih$item_pub_date[i], ": ", nih$item_title[i], "]", "(",nih$item_link[i],")"))
+}
+
+newstring<-paste(nih_list, "", collapse = "", sep = "  \n\n")
+```
+
+`r newstring`
+
+
+### Al Jazeera
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+alj <- rbind(if(exists("alj")) alj,
+             get_news(rss = "https://www.aljazeera.com/xml/rss/all.xml")) %>%
+  filter(duplicated(item_link) == FALSE) %>%
+  filter(item_pub_date >= start_date, item_pub_date <= end_date) %>%
+  mutate(item_pub_date = format(item_pub_date, "%B %d")) %>% 
+  arrange(item_pub_date) 
+
+alj_list <- c()
+
+for (i in 1:nrow(alj)){
+  alj_list <- c(alj_list, paste0("[", alj$item_pub_date[i], ": ", alj$item_title[i], "]", "(",alj$item_link[i],")"))
+}
+
+newstring<-paste(alj_list, "", collapse = "", sep = "  \n\n")
+```
+
+`r newstring`
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(lubridate)
+save(alj, cdc, cnn, fox, nih, nyt, reu, stat, un, file = paste0(today(), "_news.RData"))
+```

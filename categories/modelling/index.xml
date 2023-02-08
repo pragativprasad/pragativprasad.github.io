@@ -6,7 +6,17 @@
     <description>Recent content in Modelling on Pragati V. Prasad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 11 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/modelling/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/modelling/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>December 2022 Published Pandemic Modelling Literature</title>
+      <link>/posts/modelling-2/</link>
+      <pubDate>Mon, 26 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/modelling-2/</guid>
+      <description>This is a summary of December 2022 published pandemic modelling literature. There’s a lot of commentary on mathematical models and their pitfalls as it pertains to pandemic science this month.
+I searched “pandemic mathematical modelling” on PubMed, filtering between 12/01/2022 and 12/31/2022, on December 24, 2022, which resulted in 47 journal articles. This I reviewed titles and abstracts of each of the 47 articles to only include papers about transmission models.</description>
+    </item>
+    
     <item>
       <title>How Models Were Used in the COVID-19 Pandemic</title>
       <link>/posts/modelling-1/</link>

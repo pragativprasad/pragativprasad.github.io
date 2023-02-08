@@ -6,7 +6,27 @@
     <description>Recent content on Pragati V. Prasad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 11 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>January 2023 Viral &amp; Vaccine News</title>
+      <link>/news/news-1/</link>
+      <pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/news/news-1/</guid>
+      <description>This month in virus and vaccine news…
+ China’s lifting of COVID-19 restrictions is being monitored abroad. Several other countries are following suit in loosening COVID-19 mitigations: Hong Kong, Japan, Spain, Italy, and South Korea. Israel and EU conduct independent reviews of Pfizer vaccine and don’t find a link to strokes. Uganda announces the end of recent Ebola epidemic.  United Nations January 03: COVID-19: China infection surge on agenda at WHO coronavirus meeting</description>
+    </item>
+    
+    <item>
+      <title>December 2022 Published Pandemic Modelling Literature</title>
+      <link>/posts/modelling-2/</link>
+      <pubDate>Mon, 26 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/modelling-2/</guid>
+      <description>This is a summary of December 2022 published pandemic modelling literature. There’s a lot of commentary on mathematical models and their pitfalls as it pertains to pandemic science this month.
+I searched “pandemic mathematical modelling” on PubMed, filtering between 12/01/2022 and 12/31/2022, on December 24, 2022, which resulted in 47 journal articles. This I reviewed titles and abstracts of each of the 47 articles to only include papers about transmission models.</description>
+    </item>
+    
     <item>
       <title>How Models Were Used in the COVID-19 Pandemic</title>
       <link>/posts/modelling-1/</link>

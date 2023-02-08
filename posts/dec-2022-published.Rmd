@@ -1,0 +1,46 @@
+---
+title: "December 2022 Published Pandemic Modelling Literature"
+author: "Pragati Prasad"
+date: "2022-12-26"
+slug: modelling-2
+categories: ["Modelling"]
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is a summary of December 2022 published pandemic modelling literature. There's a lot of commentary on mathematical models and their pitfalls as it pertains to pandemic science this month. 
+
+I searched "pandemic mathematical modelling" on PubMed, filtering between 12/01/2022 and 12/31/2022, on December 24, 2022, which resulted in 47 journal articles. This  I reviewed titles and abstracts of each of the 47 articles to only include papers about transmission models. References for the papers that made the cut are at the end of this text.
+
+Haw et al. detail the data needs for transmission models, as well as the data needs to adequately estimate economic outcomes. Heneghan & Jefferson indicate that model methodology is often not validated and that inputs into SARS-CoV-2 models varied widely, specifically basic reproduction number. Additionally, Tuner et al. suggest that an SEIR model might not the right model structure for the parameter space given to estimate SARS-CoV-2 transmission. And Kalachev et al. demonstrate how the "wrong" data in the "right" models can be dangerous. 
+
+We're offered a couple of interesting solutions to these issues - a fuzzy-SIRD model that changes parameters during the model run to simulate how a pandemic would behave in the real world, and a Bayesian SIR model (Hagrah et al. and Gu & Yin). These hybrid methods are likely on the right track: incorporating stochasticity to report a range of outcomes, using priors to inform models, and changing parameters dynamically.
+
+I included 3 journal articles in the references that use models to explore vaccine allocation, the impact of school closures and vaccination, and immunity in the Japanese population (Yang et al., Xue et al., and Sasanami et al.). 
+
+Finally, Meyer & Lima advocate for encouraging scientists to learn to work with SIR-type mathematical models - which would greatly improve the pandemic and epidemic modelling landscape.
+
+## References 
+
+ * Haw DJ, Morgenstern C, Forchini G, et al. Data needs for integrated economic-epidemiological models of pandemic mitigation policies. Epidemics. 2022;41:100644. doi:10.1016/j.epidem.2022.100644
+
+ * Heneghan CJ, Jefferson T. Why COVID-19 modelling of progression and prevention fails to translate to the real-world. Adv Biol Regul. 2022;86:100914. doi:10.1016/j.jbior.2022.100914
+ 
+ * Tuncer N, Timsina A, Nuno M, Chowell G, Martcheva M. Parameter identifiability and optimal control of an SARS-CoV-2 model early in the pandemic. J Biol Dyn. 2022;16(1):412-438. doi:10.1080/17513758.2022.2078899
+ 
+ * Kalachev L, Landguth EL, Graham J. Revisiting classical SIR modelling in light of the COVID-19 pandemic. Infect Dis Model. 2023;8(1):72-83. doi:10.1016/j.idm.2022.12.002
+
+ * Haghrah AA, Ghaemi S, Badamchizadeh MA. Fuzzy-SIRD model: Forecasting COVID-19 death tolls considering governments intervention. Artif Intell Med. 2022;134:102422. doi:10.1016/j.artmed.2022.102422
+ 
+ * Gu J, Yin G. Bayesian SIR model with change points with application to the Omicron wave in Singapore. Sci Rep. 2022;12(1):20864. Published 2022 Dec 2. doi:10.1038/s41598-022-25473-y
+
+ * Yang T, Deng W, Liu Y, Deng J. Comparison of health-oriented cross-regional allocation strategies for the COVID-19 vaccine: a mathematical modelling study. Ann Med. 2022;54(1):941-952. doi:10.1080/07853890.2022.2060522
+ 
+ * Xue Y, Chen D, Smith SR, Ruan X, Tang S. Coupling the Within-Host Process and Between-Host Transmission of COVID-19 Suggests Vaccination and School Closures are Critical. Bull Math Biol. 2022;85(1):6. Published 2022 Dec 19. doi:10.1007/s11538-022-01104-5
+ 
+ * Sasanami M, Fujimoto M, Kayano T, Hayashi K, Nishiura H. Projecting the COVID-19 immune landscape in Japan in the presence of waning immunity and booster vaccination. J Theor Biol. 2023;559:111384. doi:10.1016/j.jtbi.2022.111384
+
+ * Meyer JFCA, Lima M. Relevant mathematical modelling efforts for understanding COVID-19 dynamics: an educational challenge [published online ahead of print, 2022 Dec 2] [published correction appears in ZDM. 2022 Dec 16;:1-4]. ZDM. 2022;1-14. doi:10.1007/s11858-022-01447-2
