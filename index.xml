@@ -8,15 +8,6 @@
     <language>en</language>
     <lastBuildDate>Wed, 05 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Keep up with viral news!</title>
-      <link>/signup/</link>
-      <pubDate>Thu, 06 Jul 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/signup/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>June 2023 Viral &amp; Vaccine News</title>
       <link>/news/news-june23/</link>
       <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
@@ -84,9 +75,8 @@ I try a couple of different versions of the model to try to replicate the result
       <pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>/about/</guid>
-      <description>Hello! My name is Pragati and I am an epidemiologist. I&amp;rsquo;m currently a PhD student.
-In an effort to deepen my scientific capabilities, I&amp;rsquo;ll be posting my adaptions of published infectious disease models in Posts. You may find some other modelling and epidemiology content there as well.
-I have a Bachelor of Science in Computer Science from the University of Texas at Austin and a Master of Public Health in Epidemiology from Emory University.</description>
+      <description>Hello! My name is Pragati and I am an epidemiologist.
+I&amp;rsquo;m currently a 1st year PhD student. I have a Bachelor of Science in Computer Science from the University of Texas at Austin and a Master of Public Health in Epidemiology from Emory University. I worked for 3 years at CDC as an ORISE Fellow / Health Scientist and for 2 years as a Scientific Software Developer prior to my masters.</description>
     </item>
     
     <item>
@@ -97,6 +87,15 @@ I have a Bachelor of Science in Computer Science from the University of Texas at
       <guid>/posts/model-1/</guid>
       <description>The following is my rendition of a 2018 Kong et al. model for the 2014 dengue (DENV) outbreak in Guangzhou, China using EpiModel.
 I developed the SEIR-SEI model described by Kong et al., where SEIR respresents the human compartments and SEI represents the vector compartments. The total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million (Table 1). This illustrates the importance of accounting for dispersion (i.</description>
+    </item>
+    
+    <item>
+      <title>Feedback &amp; Sign-up Form</title>
+      <link>/signup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/signup/</guid>
+      <description> Loading…  </description>
     </item>
     
   </channel>
