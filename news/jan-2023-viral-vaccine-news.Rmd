@@ -2,7 +2,7 @@
 title: "January 2023 Viral & Vaccine News"
 author: "Pragati Prasad"
 date: "2023-02-07"
-slug: news-1
+slug: news-jan23
 categories: ["News"]
 output: html_document
 ---

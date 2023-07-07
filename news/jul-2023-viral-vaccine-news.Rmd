@@ -1,24 +1,13 @@
 ---
-title: "June 2023 Viral & Vaccine News"
+title: "July 2023 Viral & Vaccine News"
 author: "Pragati Prasad"
-date: "2023-07-05"
-slug: news-june23
+date: "2023-08-01"
+slug: news-july23
 categories: ["News"]
 output: html_document
 ---
 
-This month in virus and vaccine news... arboviruses are on the rise.
-
-It was expected with summers becoming hotter and extreme weather phenomena occurring more frequently, but the devastation does not indicate that those who expected it were able to put money into preparedness. Dengue in Peru has all-time high severity for South American dengue outbreaks this year, according to NPR. 
-
-This is especially problematic due to the concept of *original antigenic sin*: dengue has four distinct (sero)types, and having mild illness from a prior infection by one serotype can lead to a more severe illness (i.e. dengue hemorrhagic fever) when infected by another serotype subsequently. 
-
-If you want to monitor the West Nile Virus situation in the US: 
-
- - [Current WNV Case Counts](https://www.cdc.gov/westnile/statsmaps/current-season-data.html) 
- 
- - [Historical Data for WNV Cases](https://www.cdc.gov/westnile/statsmaps/historic-data.html)
-
+This month in virus and vaccine news... 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -30,10 +19,10 @@ library(anytime)
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-files <- list.files(pattern = "2023-06")
+files <- list.files(pattern = "2023-07")
 
-start_date = as.Date("2023-06-01")
-end_date = as.Date("2023-06-30")
+start_date = as.Date("2023-07-01")
+end_date = as.Date("2023-07-31")
 
 terms <- "outbreak|virus|vaccin"
 
@@ -47,12 +36,12 @@ if(length(files) > 0){
       fullnewstring = rbind(fullnewstring, f)
     }
   }
+  
+  fullnewstring <- fullnewstring[fullnewstring %>%
+      mutate_all(funs(str_detect(., terms)))  %>% 
+      reduce(`|`) ,] %>%
+    unique()
 }
-
-fullnewstring <- fullnewstring[fullnewstring %>%
-    mutate_all(funs(str_detect(., terms)))  %>% 
-    reduce(`|`) ,] %>%
-  unique()
 
 get_news <- function(rss){
   
