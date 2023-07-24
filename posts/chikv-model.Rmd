@@ -3,7 +3,7 @@ title: "Model 2: A Chikungunya Model"
 author: Pragati Prasad
 date: '2022-07-23'
 slug: model-2
-categories: ["Model", "CHIKV"]
+categories: ["Model"]
 output: html_document 
 ---
 

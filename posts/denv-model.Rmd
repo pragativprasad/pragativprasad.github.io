@@ -3,7 +3,7 @@ title: "Model 1: A Simple Dengue Model"
 author: Pragati Prasad
 date: '2022-07-16'
 slug: model-1
-categories: ["Model", "DENV"]
+categories: ["Model"]
 output: html_document 
 ---
 

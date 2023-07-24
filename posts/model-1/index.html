@@ -97,6 +97,10 @@ I developed the SEIR-SEI model described by Kong et al., where SEIR respresents 
           </li>
         
           <li class="navigation-item">
+            <a class="navigation-link" href="/categories/">Categories</a>
+          </li>
+        
+          <li class="navigation-item">
             <a class="navigation-link" href="/signup/">Sign up!</a>
           </li>
         
@@ -129,9 +133,7 @@ I developed the SEIR-SEI model described by Kong et al., where SEIR respresents 
           </div>
           <div class="categories">
   <i class="fas fa-folder"></i>
-    <a href="/categories/model/">Model</a>
-      <span class="separator">•</span>
-    <a href="/categories/denv/">DENV</a></div>
+    <a href="/categories/model/">Model</a></div>
 
           
         </div>
@@ -142,10 +144,11 @@ I developed the SEIR-SEI model described by Kong et al., where SEIR respresents 
 
 
 <p>The following is my rendition of a 2018 <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6025315/">Kong et al.</a> model for the 2014 dengue (DENV) outbreak in Guangzhou, China using <a href="https://www.epimodel.org">EpiModel</a>.</p>
-<p>I developed the SEIR-SEI model described by Kong et al., where SEIR respresents the human compartments and SEI represents the vector compartments. The total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million (Table 1). This illustrates the importance of accounting for dispersion (i.e. superspreading, clustering, heterogeneity, etc.) in all transmission models. The Kong et al. Figure 6 matches Figure 4 below.</p>
-<p>In a subsequent post, I'll develop the extended model in this paper and try to fit to their data.</p>
+<p>I developed the SEIR-SEI model described by Kong et al., where SEIR respresents the human compartments and SEI represents the vector compartments. The total infections for this outbreak depending on transmission heterogeneity (kappa) ranges between 558,000 and 10 million (Table 1). This illustrates the importance of accounting for dispersion (i.e. superspreading, clustering, heterogeneity, etc.) in all transmission models. The Kong et al. Figure 6 matches Figure 4 below.</p>
+<p>In a subsequent post, I’ll develop the extended model in this paper and try to fit to their data.</p>
 <p>Full code is on <a href="https://github.com/pragativprasad/pragativprasad.github.io/blob/master/post/denv-model.Rmd">Github</a>.</p>
-<p><strong>Reference:</strong> Kong L, Wang J, Li Z, et al. Modeling the Heterogeneity of Dengue Transmission in a City. Int J Environ Res Public Health. 2018;15(6):1128. Published 2018 May 31. <a href="doi:10.3390/ijerph15061128" class="uri">doi:10.3390/ijerph15061128</a></p>
+<p><strong>Reference:</strong>
+Kong L, Wang J, Li Z, et al. Modeling the Heterogeneity of Dengue Transmission in a City. Int J Environ Res Public Health. 2018;15(6):1128. Published 2018 May 31. <a href="doi:10.3390/ijerph15061128" class="uri">doi:10.3390/ijerph15061128</a></p>
 <div id="model" class="section level2">
 <h2>Model</h2>
 <pre class="r"><code>denv &lt;-function(t, t0, parms) {

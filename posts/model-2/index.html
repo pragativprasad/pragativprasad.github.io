@@ -97,6 +97,10 @@ I try a couple of different versions of the model to try to replicate the result
           </li>
         
           <li class="navigation-item">
+            <a class="navigation-link" href="/categories/">Categories</a>
+          </li>
+        
+          <li class="navigation-item">
             <a class="navigation-link" href="/signup/">Sign up!</a>
           </li>
         
@@ -129,9 +133,7 @@ I try a couple of different versions of the model to try to replicate the result
           </div>
           <div class="categories">
   <i class="fas fa-folder"></i>
-    <a href="/categories/model/">Model</a>
-      <span class="separator">•</span>
-    <a href="/categories/chikv/">CHIKV</a></div>
+    <a href="/categories/model/">Model</a></div>
 
           
         </div>
@@ -215,8 +217,9 @@ Total.Infected
 </tr>
 </tbody>
 </table>
-<p>Peak Incidence here is not consistent with the paper's findings (5.3%). Final attack rate should be around 42%, not 98.4% as we found here. I've only done a deterministic analysis, I still feel that I should be getting an attack rate similar to that of the authors.</p>
-<p>Upon taking another look at the model, it doesn't really make sense to me that only uninfected mosquitos (in the X compartment) would be breeding. Wouldn't mosquitos in all compartments procreate?</p>
+<p>Peak Incidence here is not consistent with the paper’s findings (5.3%). Final attack rate should be around 42%, not 98.4% as we found here.
+I’ve only done a deterministic analysis, I still feel that I should be getting an attack rate similar to that of the authors.</p>
+<p>Upon taking another look at the model, it doesn’t really make sense to me that only uninfected mosquitos (in the X compartment) would be breeding. Wouldn’t mosquitos in all compartments procreate?</p>
 <p>I change this below:</p>
 </div>
 <div id="model-b" class="section level2">
@@ -285,8 +288,9 @@ Total.Infected
 </tr>
 </tbody>
 </table>
-<p>Peak prevalence and peak incidence are actually slightly reduced here - because we introduce more uninfected susceptibles than in the prior model if I assume that all mosquitos breed to create suseceptible mosquitos.</p>
-<p>Either way, our EpiModel version of this chikungunya model is grossly overestimating the transmission process... Let's try altering the mosquito population - from 9 million to 785,000. One mosquito per human.</p>
+<p>Peak prevalence and peak incidence are actually slightly reduced here - because we introduce more uninfected susceptibles than in the prior model if I assume that all mosquitos
+breed to create suseceptible mosquitos.</p>
+<p>Either way, our EpiModel version of this chikungunya model is grossly overestimating the transmission process… Let’s try altering the mosquito population - from 9 million to 785,000. One mosquito per human.</p>
 </div>
 <div id="model-c" class="section level2">
 <h2>Model C</h2>
@@ -324,8 +328,8 @@ Total.Infected
 </table>
 <p>Even if I edit the number of mosquitos in the population but keep the model the same, we get the same dynamics within the human population.</p>
 <p>This is an example of how infectious disease models are not always replicable because of interpretation of parameters and underlying methods. It is actually important to have models that acknowledge different nuances that are left out in others to show a range of outcomes.</p>
-<p>But, this is why using multiple models is a MUST if we're relying on models to make important policy or intervention decisions. And a plus would be publicly available code for those models!</p>
-<p>I'll eventually recreate some COVID-19 models that highlight the same message.</p>
+<p>But, this is why using multiple models is a MUST if we’re relying on models to make important policy or intervention decisions. And a plus would be publicly available code for those models!</p>
+<p>I’ll eventually recreate some COVID-19 models that highlight the same message.</p>
 </div>
 
       </div>

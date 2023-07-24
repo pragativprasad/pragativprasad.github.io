@@ -3,7 +3,19 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/categories/</loc>
-    <lastmod>2023-07-05T00:00:00+00:00</lastmod>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/phd/</loc>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/phd-2/</loc>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/news/news-june23/</loc>
     <lastmod>2023-07-05T00:00:00+00:00</lastmod>
@@ -12,9 +24,6 @@
     <lastmod>2023-07-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/news/</loc>
-    <lastmod>2023-07-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/</loc>
     <lastmod>2023-07-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/news/news-jan23/</loc>
@@ -26,20 +35,11 @@
     <loc>/categories/modelling/</loc>
     <lastmod>2022-12-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/</loc>
-    <lastmod>2022-12-26T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/posts/modelling-1/</loc>
     <lastmod>2022-08-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/categories/phd/</loc>
-    <lastmod>2022-07-30T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/posts/phd-1/</loc>
     <lastmod>2022-07-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/chikv/</loc>
-    <lastmod>2022-07-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/model/</loc>
     <lastmod>2022-07-23T00:00:00+00:00</lastmod>
@@ -48,9 +48,6 @@
     <lastmod>2022-07-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/about/</loc>
-    <lastmod>2022-07-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/denv/</loc>
     <lastmod>2022-07-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/model-1/</loc>
