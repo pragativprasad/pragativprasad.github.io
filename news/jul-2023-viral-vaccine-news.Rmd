@@ -1,13 +1,25 @@
 ---
-title: "July 2023 Viral & Vaccine News"
+title: "Your Next Dose: July 2023"
 author: "Pragati Prasad"
-date: "2023-08-01"
+date: "2023-07-31"
 slug: news-july23
 categories: ["News"]
 output: html_document
 ---
 
-This month in virus and vaccine news... 
+This month in virus & vaccine news... 
+
+We're seeing some worrisome trends regarding childhood immunizations. There was plenty of concern about this during height of the pandemic. The Director-General of the World Health Organization is encouraged by increasing childhood vaccinations in some countries, but almost 50% of countries that saw declines are not improving, according to the United Nations. The US is still grappling with kids being behind on vaccines, too.
+
+Some ongoing outbreaks in the United States:   
+
+ - Five hospitalizations and three deaths due to Listeria in Washington state, [possibly from ready-to-eat cold-smoked or cured fish](https://www.foodsafetynews.com/2023/07/smoked-fish-advice-updated-amid-listeria-outbreak/).
+ - 13 norovirus outbreaks in cruises that docked in the US this year. 
+ - A syphilis outbreak in Houston. 
+
+ 
+CDC might start recommending annual COVID boosters similar to the annual influenza vaccine recommendation, and respiratory syncytial virus (RSV) for some age groups. The flu vaccine has been around for a long time, and the COVID vaccine is a recent but pervasive development. However, the RSV vaccines are new. [Arexvy (GSK)](https://www.fda.gov/news-events/press-announcements/fda-approves-first-respiratory-syncytial-virus-rsv-vaccine) and [ABRYSVO (Pfizer)](https://www.fda.gov/vaccines-blood-biologics/abrysvo) were both approved for use in adults aged 60 and older by the US Federal Drug Administration in May of this year. The CDC has also recommended these vaccines for the same age group. And there is some press around a possible "Tripledemic" of COVID, flu, and RSV in the fall to winter, so we'll see how the conversation around the RSV vaccine, and an annual COVID shot for that matter, evolves as summer comes to an end.
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
