@@ -1,5 +1,5 @@
 ---
-title: "Your Next Dose: July 2023"
+title: "Your Next Dose: July 2023 Edition"
 author: "Pragati Prasad"
 date: "2023-07-31"
 slug: news-july23
