@@ -1,8 +1,8 @@
 ---
-title: "Your Next Dose: September 2023 Edition"
+title: "Your Next Dose: August 2023 Edition"
 author: "Pragati Prasad"
-date: "2023-09-30"
-slug: news-sept23
+date: "2023-08-31"
+slug: news-aug23
 categories: ["News"]
 output: html_document
 ---
@@ -19,10 +19,10 @@ library(anytime)
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-files <- list.files(pattern = "2023-09")
+files <- list.files(pattern = "2023-08")
 
-start_date = as.Date("2023-09-01")
-end_date = as.Date("2023-09-30")
+start_date = as.Date("2023-08-01")
+end_date = as.Date("2023-08-31")
 
 terms <- "outbreak|virus|vaccin"
 
@@ -46,7 +46,20 @@ if(length(files) > 0){
                              newstring = c())
 }
 
-# fullnewstring <- fullnewstring %>% arrange(newstring)
+fullnewstring = fullnewstring[!(fullnewstring$source == "NYPost" & 
+                                  fullnewstring$newstring == "[August 04: Three Shots for Fall: What You Need to Know](https://www.nytimes.com/article/flu-covid-rsv-vaccines.html)"),]
+
+fullnewstring = rbind(fullnewstring,
+                      data.frame(source = c("STAT", "STAT", "STAT", "STAT", "STAT", "STAT"), 
+                                 newstring = c(
+                        "[August 02: Measles was once seen as a childhood disease. Increasingly, adults are susceptible, too](https://www.statnews.com/2023/08/02/adult-measles-infection/)",
+                        "[August 03: CDC recommends RSV monoclonal antibody for infants, high-risk young children, too](https://www.statnews.com/2023/08/03/cdc-advisers-endorse-rsv-monoclonal-antibody-for-infants-high-risk-young-children/)", 
+                        "[August 04: Pandemic slowed cancer diagnoses, but late-stage cancers came back with a vengeance](https://www.statnews.com/2023/08/04/pandemic-cancer-diagnoses-late-stage/)",
+                        "[August 07: Community health workers, experts in the in-between, fight for their place in the system](https://www.statnews.com/2023/08/07/community-health-workers-montefiore-nachw/)",
+                        "[August 09: ‘Underwhelming’: NIH trials fail to test meaningful long Covid treatments — after 2.5 years and $1 billion](https://www.statnews.com/2023/08/09/long-covid-nih-trials/)",
+                        "[August 09: Meet the scientists trying to stop the next global pandemic from starting in Africa](https://www.statnews.com/2023/08/09/happi-sabeti-sentinel-geneticists-global-pandemic-africa/)")))
+
+fullnewstring <- fullnewstring %>% arrange(newstring)
 
 get_news <- function(rss){
   

@@ -1,8 +1,8 @@
 ---
-title: "Your Next Dose: September 2023 Edition"
+title: "Your Next Dose: October 2023 Edition"
 author: "Pragati Prasad"
-date: "2023-09-30"
-slug: news-sept23
+date: "2023-10-31"
+slug: news-oct23
 categories: ["News"]
 output: html_document
 ---
@@ -19,10 +19,10 @@ library(anytime)
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-files <- list.files(pattern = "2023-09")
+files <- list.files(pattern = "2023-10")
 
-start_date = as.Date("2023-09-01")
-end_date = as.Date("2023-09-30")
+start_date = as.Date("2023-10-01")
+end_date = as.Date("2023-10-31")
 
 terms <- "outbreak|virus|vaccin"
 
