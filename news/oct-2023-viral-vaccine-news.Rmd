@@ -23,6 +23,7 @@ files <- list.files(pattern = "2023-10")
 
 start_date = as.Date("2023-10-01")
 end_date = as.Date("2023-10-31")
+month = "October"
 
 terms <- "outbreak|virus|vaccin"
 
@@ -40,7 +41,8 @@ if(length(files) > 0){
   fullnewstring <- fullnewstring[fullnewstring %>%
       mutate_all(funs(str_detect(., terms)))  %>% 
       reduce(`|`) ,] %>%
-    unique()
+    unique() %>%
+    filter(str_detect(newstring, month))
 }else{
   fullnewstring = data.frame(source = c(),
                              newstring = c())
